@@ -1828,8 +1828,13 @@
         "installment": "parcela",
         "installment_plural": "parcelas",
         "with_interest_rate_2": "De",
-        "to": "{{from}} a {{to}}",
-        "with_interest_rate_3": "vezes, juros de {{percent}} a.m"
+        "to": "Até {{to}}",
+        "to_plural": "{{from}} a {{to}}",
+        "with_interest_rate_3": "vezes, juros de {{percent}} a.m",
+        "charge_transaction_fee_interest_rate_taxing": "vez, com juros",
+        "charge_transaction_fee_interest_rate_taxing_plural": "vezes, com juros",
+        "charge_transaction_fee_interest_rate_no_taxing": "vez, sem juros",
+        "charge_transaction_fee_interest_rate_no_taxing_plural": "vezes, sem juros"
       },
       "list": {
         "empty_state_title": "Não foram encontradas transações neste link de pagamentos.",
