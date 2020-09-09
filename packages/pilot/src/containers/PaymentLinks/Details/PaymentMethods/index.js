@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import {
   Card,
@@ -10,6 +10,7 @@ import styles from './styles.css'
 
 const renderCreditCardMessage = (creditCardConfig, t) => {
   const {
+    charge_transaction_fee: chargeTransactionFee,
     free_installments: freeInstalments,
     interest_rate: interestRate,
     max_installments: maxInstallments,
@@ -17,16 +18,63 @@ const renderCreditCardMessage = (creditCardConfig, t) => {
 
   if (freeInstalments == null) {
     return (
-      <>
+      <p className={styles.interestRate}>
         {t('pages.payment_link_detail.payment_methods.max_of')}
         <span>{maxInstallments}</span>
         {t('pages.payment_link_detail.payment_methods.no_interest_rate', { count: maxInstallments })}
-      </>
+      </p>
+    )
+  }
+
+  if (chargeTransactionFee) {
+    const hasMultipleTaxes = (
+      freeInstalments > 0 && freeInstalments < 12
+      && maxInstallments > freeInstalments
+    )
+
+    const installmentsGroup = hasMultipleTaxes
+      ? [
+        { from: 1, to: freeInstalments },
+        { from: freeInstalments + 1, to: maxInstallments },
+      ]
+      : [
+        { from: 1, to: maxInstallments },
+      ]
+
+    return (
+      <Fragment>
+        {installmentsGroup.map(({ from, to }) => (
+          <p key={from} className={styles.installmentRange}>
+            {to > 1 && (
+              <span className={styles.from}>
+                {t('pages.payment_link_detail.payment_methods.with_interest_rate_2')}
+              </span>
+            )}
+            <span className={styles.range}>
+              {t('pages.payment_link_detail.payment_methods.to', {
+                count: to,
+                from,
+                to,
+              })}
+            </span>
+            <span className={styles.to}>
+              {to > freeInstalments && freeInstalments < 12
+                ? t('pages.payment_link_detail.payment_methods.charge_transaction_fee_interest_rate_taxing', {
+                  count: to,
+                })
+                : t('pages.payment_link_detail.payment_methods.charge_transaction_fee_interest_rate_no_taxing', {
+                  count: to,
+                })
+              }
+            </span>
+          </p>
+        ))}
+      </Fragment>
     )
   }
 
   return (
-    <>
+    <p className={styles.interestRate}>
       {t('pages.payment_link_detail.payment_methods.max_of')}
       <span>{maxInstallments}</span>
       {t('pages.payment_link_detail.payment_methods.installment', { count: maxInstallments })}
@@ -39,6 +87,7 @@ const renderCreditCardMessage = (creditCardConfig, t) => {
       {t('pages.payment_link_detail.payment_methods.with_interest_rate_2')}
       <span>
         {t('pages.payment_link_detail.payment_methods.to', {
+          count: maxInstallments,
           from: freeInstalments + 1,
           to: maxInstallments,
         })}
@@ -46,7 +95,7 @@ const renderCreditCardMessage = (creditCardConfig, t) => {
       {t('pages.payment_link_detail.payment_methods.with_interest_rate_3', {
         percent: percent(interestRate),
       })}
-    </>
+    </p>
   )
 }
 
@@ -66,12 +115,12 @@ const PaymentMethods = ({
           <p className={styles.subtitle}>
             {t('pages.payment_link_detail.payment_methods.credit_subtitle')}
           </p>
-          <span className={styles.content}>
+          <div className={styles.content}>
             {creditCardConfig
               ? renderCreditCardMessage(creditCardConfig, t)
               : '-'
             }
-          </span>
+          </div>
         </div>
         <div>
           <p className={styles.title}>
@@ -97,6 +146,7 @@ PaymentMethods.propTypes = {
     expires_in: PropTypes.number,
   }),
   creditCardConfig: PropTypes.shape({
+    charge_transaction_fee: PropTypes.bool,
     free_installments: PropTypes.number,
     interest_rate: PropTypes.number,
     max_installments: PropTypes.number,
