@@ -1,13 +1,9 @@
 import pagarme from 'pagarme'
 import {
-  allPass,
   complement,
-  hasPath,
   identity,
-  ifElse,
   isEmpty,
   path,
-  pathEq,
   pathOr,
   propEq,
 } from 'ramda'
@@ -56,17 +52,7 @@ const isActiveCompany = propEq('status', 'active')
 const isSelfRegister = propEq('type', 'self_register')
 const isPendingRiskAnalysis = propEq('status', 'pending_risk_analysis')
 
-const pathNotEq = (pathName, propValue) => complement(
-  pathEq(pathName, propValue)
-)
-
-const hasDashboardAccess = ifElse(
-  hasPath(['client', 'authentication', 'allow_dashboard_login']),
-  path(['client', 'authentication', 'allow_dashboard_login']),
-  allPass([
-    pathNotEq(['company', 'type'], 'mei'),
-  ])
-)
+const hasDashboardAccess = path(['capabilities', 'allow_dashboard_login'])
 
 const getRecipientId = pathOr(null, ['account', 'company', 'default_recipient_id', env])
 const getFeePresetId = pathOr(null, ['account', 'defaultRecipient', 'fee_preset_id'])
@@ -81,7 +67,7 @@ const errorHandler = (error) => {
 const verifyCapabilityPermission = client => (
   client.company.current()
     .then((company) => {
-      if (!hasDashboardAccess({ client, company })) {
+      if (!hasDashboardAccess(company)) {
         client.session.destroy(client.authentication.session_id)
 
         throw new Error('Unauthorized Login')
