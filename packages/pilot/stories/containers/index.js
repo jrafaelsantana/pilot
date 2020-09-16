@@ -506,9 +506,11 @@ storiesOf('Containers|Payment Links/Details/TransactionsList', module)
   .add('When empty', () => <PaymentLinks.Details.TransactionsList.WhenEmpty />)
 
 storiesOf('Containers|Payment Links/Details/PaymentMethods', module)
+  .addDecorator(withKnobs)
   .add('OnlyBoleto', () => <PaymentLinks.Details.PaymentMethods.OnlyBoleto />)
   .add('WithInterestRate', () => <PaymentLinks.Details.PaymentMethods.WithInterestRate />)
   .add('WithoutInterestRate', () => <PaymentLinks.Details.PaymentMethods.WithoutInterestRate />)
+  .add('WithChargeTransactionFee', () => <PaymentLinks.Details.PaymentMethods.WithChargeTransactionFee />)
 
 storiesOf('Containers|Empty State', module)
   .add('Default', () => <EmptyState.EmptyStateDefault />)
