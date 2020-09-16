@@ -80,6 +80,7 @@ const MacroSegmentsOptions = () => (
     <div style={{ width: '374px' }}>
       <MacroSegments
         handleSubmit={action('handleSubmit')}
+        handleNotFound={action('handleNotFound')}
         notFoundText="Não encontrei o segmento do meu negócio"
         images={mocks.macroSegmentOptions.images}
         options={mocks.macroSegmentOptions.options}
