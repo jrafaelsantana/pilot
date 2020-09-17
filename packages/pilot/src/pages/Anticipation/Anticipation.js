@@ -202,7 +202,6 @@ const initialState = {
   feesValues: {
     anticipation: 0,
     fraud: 0,
-    otherFee: 0,
   },
   invalidDays: [],
   isAutomaticTransfer: true,
@@ -581,13 +580,12 @@ class Anticipation extends Component {
         status,
       }) => {
         this.setState({
-          approximateRequested: amount,
+          approximateRequested: amount - fee,
           bulkAnticipationStatus: status,
           error: null,
           feesValues: {
             anticipation: anticipationFee,
             fraud: fraudCoverageFee,
-            otherFee: fee,
           },
           isAutomaticTransfer,
           needsRecalculation: false,
@@ -732,12 +730,11 @@ class Anticipation extends Component {
       } = bulk
 
       this.setState({
-        approximateRequested: amount,
+        approximateRequested: amount - fee,
         error: null,
         feesValues: {
           anticipation: anticipationFee,
           fraud: fraudCovarageFee,
-          otherFee: fee,
         },
         loading: false,
         needsRecalculation: false,
@@ -816,14 +813,13 @@ class Anticipation extends Component {
         status,
       }) => {
         this.setState({
-          approximateRequested: amount,
+          approximateRequested: amount - fee,
           bulkAnticipationStatus: status,
           bulkId: id,
           error: null,
           feesValues: {
             anticipation: anticipationFee,
             fraud: fraudCovarageFee,
-            otherFee: fee,
           },
           loading: false,
           requestedAmount: max,
@@ -840,7 +836,6 @@ class Anticipation extends Component {
       feesValues: {
         anticipation,
         fraud,
-        otherFee,
       },
       isAutomaticTransfer,
       loading,
@@ -866,7 +861,7 @@ class Anticipation extends Component {
       t,
     } = this.props
 
-    const totalCost = -(anticipation + fraud + otherFee)
+    const totalCost = -(anticipation + fraud)
     const totalCostAndTransfer = totalCost + transferCost
     const amount = approximateRequested
       ? approximateRequested + totalCostAndTransfer
