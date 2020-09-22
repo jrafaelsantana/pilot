@@ -2,15 +2,16 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Spacing } from 'former-kit'
 
-const SpacedAmount = ({ symbol, value }) => (
+const SpacedAmount = ({ minusSign, symbol, value }) => (
   <Fragment>
-    <span>{symbol}</span>
+    <span>{minusSign + symbol}</span>
     <Spacing />
     {value}
   </Fragment>
 )
 
 SpacedAmount.propTypes = {
+  minusSign: PropTypes.string.isRequired,
   symbol: PropTypes.node.isRequired,
   value: PropTypes.node.isRequired,
 }

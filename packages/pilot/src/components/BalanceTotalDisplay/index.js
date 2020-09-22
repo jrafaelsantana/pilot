@@ -18,7 +18,7 @@ const BalanceTotalDisplay = ({
   paymentLinkDisclaimer,
   title,
 }) => {
-  const { symbol, value } = currencyToParts(Math.abs(amount))
+  const parts = currencyToParts(amount)
   return (
     <Fragment>
       <CardTitle
@@ -27,10 +27,10 @@ const BalanceTotalDisplay = ({
       />
       <CardContent>
         <span className={style.symbol}>
-          {symbol}
+          {parts.minusSign + parts.symbol}
         </span>
         <span className={style.amount}>
-          {value}
+          {parts.value}
         </span>
         <div className={style.detail}>
           {detail}

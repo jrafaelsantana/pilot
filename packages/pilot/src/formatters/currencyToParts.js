@@ -17,7 +17,7 @@ const concatAmount = parts => parts.reduce((acc, part) => {
 }, '')
 
 const currencyToParts = (value) => {
-  if (isNil(value)) {
+  if (isNil(value) || Number.isNaN(value)) {
     return null
   }
 
@@ -26,7 +26,7 @@ const currencyToParts = (value) => {
   const parts = formatter.formatToParts(amount)
 
   return {
-    minusSign: parts.find(p => p.type === 'minusSign')?.value,
+    minusSign: parts.find(p => p.type === 'minusSign')?.value || '',
     symbol: parts.find(p => p.type === 'currency')?.value,
     value: concatAmount(parts),
   }

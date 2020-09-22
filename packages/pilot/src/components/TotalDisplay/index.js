@@ -35,24 +35,24 @@ const renderSymbol = (value) => {
 }
 
 const renderValue = (amount, amountSize, color) => {
-  const { symbol, value } = currencyToParts(Math.abs(amount))
+  const parts = currencyToParts(amount)
   return (
     <div className={style.amount}>
       <small style={{ color }}>
         {renderSymbol(amount)}
       </small>
       {
-        !value || value === 'NaN'
+        !parts
           ? <div className={style.empty} />
           : (
             <div className={style.value}>
-              <span className={style.symbol}>{symbol}</span>
+              <span className={style.symbol}>{parts.symbol}</span>
               <span className={
                 classNames({
                   [style[amountSize]]: amountSize,
                 })}
               >
-                {value}
+                {parts.value}
               </span>
             </div>
           )
