@@ -17,6 +17,10 @@ const expiresIn = ({
   expiration_amount: expirationAmount,
   expiration_unit: expirationUnit,
 }) => {
+  if (!expirationAmount) {
+    return undefined
+  }
+
   const date = moment()
   const expirationDate = date.clone().add(expirationAmount, expirationUnit)
   const duration = moment.duration(expirationDate.diff(date))

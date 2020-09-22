@@ -39,7 +39,11 @@ const createMaxAllowedDays = (timeUnit, getTranslation) => (timeAmount) => {
 
 export const validateExpirationAmount = (
   expirationUnit, getTranslation
-) => (value = 0) => {
+) => (value) => {
+  if (!value) {
+    return false
+  }
+
   const isNumber = createNumberValidation(getTranslation('is_not_integer_error'))
   const minAllowedHours = createMinAllowedHours(expirationUnit, getTranslation)
   const maxAllowedDays = createMaxAllowedDays(expirationUnit, getTranslation)
