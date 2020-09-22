@@ -1726,7 +1726,7 @@
           "title": "Criar link de pagamentos",
           "price_form_label": "Preço (R$)",
           "link_name_label": "Nome do link",
-          "time_expiration_form_label": "Tempo de expiração",
+          "time_expiration_form_label": "Tempo de expiração (opcional)",
           "expiration_date_string": "Este link ficará disponível até {{formatedDate}} às {{formatedHours}}.",
           "min_chars_length_error": "Este campo precisa ter no mínimo {{length}} caracteres.",
           "max_chars_length_error": "No máximo {{length}} caracteres",
