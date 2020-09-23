@@ -8,7 +8,7 @@ const currency = (value) => {
     return null
   }
 
-  return `${parts.symbol} ${parts.value}`
+  return `${parts.minusSign}${parts.symbol} ${parts.value}`
 }
 
 export default currency

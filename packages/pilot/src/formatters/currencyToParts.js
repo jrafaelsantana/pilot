@@ -1,5 +1,5 @@
-import { isNil } from 'ramda'
 import Intl from 'intl'
+import { isNil } from 'ramda'
 import 'intl/locale-data/jsonp/pt'
 
 const formatter = new Intl.NumberFormat('pt-BR', {
@@ -7,21 +7,29 @@ const formatter = new Intl.NumberFormat('pt-BR', {
   style: 'currency',
 })
 
-const numberFormatter = (amount) => {
-  const valueFormat = Number(amount) / 100
-  const [symbol, ...others] = formatter.formatToParts(valueFormat)
-  return {
-    symbol: symbol.value,
-    value: others.map(({ value }) => value).join(''),
+const concatAmount = parts => parts.reduce((acc, part) => {
+  const amountTypes = ['integer', 'decimal', 'group', 'fraction']
+  if (amountTypes.includes(part.type)) {
+    return acc + part.value
   }
-}
+
+  return acc
+}, '')
 
 const currencyToParts = (value) => {
-  if (isNil(value)) {
+  if (isNil(value) || Number.isNaN(value)) {
     return null
   }
 
-  return numberFormatter(value)
+  const amount = Number(value) / 100
+
+  const parts = formatter.formatToParts(amount)
+
+  return {
+    minusSign: parts.find(p => p.type === 'minusSign')?.value || '',
+    symbol: parts.find(p => p.type === 'currency')?.value,
+    value: concatAmount(parts),
+  }
 }
 
 export default currencyToParts
