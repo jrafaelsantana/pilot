@@ -1,5 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
+import { withKnobs } from '@storybook/addon-knobs'
 import { withA11y } from '@storybook/addon-a11y'
 
 import AnticipationForm from './Anticipation/Form'
@@ -477,6 +478,7 @@ storiesOf('Containers|Payment Links/List/PaymentLinkList', module)
   .add('Empty list', () => <PaymentLinks.List.PaymentLinksList.WithEmptyList />)
 
 storiesOf('Containers|Payment Links/List/PaymentLinkAdd', module)
+  .addDecorator(withKnobs)
   .add('AddModal', () => <PaymentLinks.List.PaymentLinkAdd.PaymentLinkAddModal />)
   .add('FirstStep', () => <PaymentLinks.List.PaymentLinkAdd.PaymentLinkFirstStep />)
   .add('SecondStep', () => <PaymentLinks.List.PaymentLinkAdd.PaymentLinkSecondStep />)
@@ -504,9 +506,11 @@ storiesOf('Containers|Payment Links/Details/TransactionsList', module)
   .add('When empty', () => <PaymentLinks.Details.TransactionsList.WhenEmpty />)
 
 storiesOf('Containers|Payment Links/Details/PaymentMethods', module)
+  .addDecorator(withKnobs)
   .add('OnlyBoleto', () => <PaymentLinks.Details.PaymentMethods.OnlyBoleto />)
   .add('WithInterestRate', () => <PaymentLinks.Details.PaymentMethods.WithInterestRate />)
   .add('WithoutInterestRate', () => <PaymentLinks.Details.PaymentMethods.WithoutInterestRate />)
+  .add('WithChargeTransactionFee', () => <PaymentLinks.Details.PaymentMethods.WithChargeTransactionFee />)
 
 storiesOf('Containers|Empty State', module)
   .add('Default', () => <EmptyState.EmptyStateDefault />)

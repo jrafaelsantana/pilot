@@ -24,8 +24,28 @@
   color: var(--color-birdperson-gray-500);
   font-size: 16px;
 
-  & span {
+  & .installmentRange {
+    margin: 0;
+  }
+
+  & .from {
+    margin-right: 4px;
+  }
+
+  & .range {
     font-weight: bold;
-    margin: 0 4px;
+  }
+
+  & .to {
+    margin-left: 4px;
+  }
+
+  & > .interestRate {
+    margin: 0;
+
+    & span {
+      margin: 0 4px;
+      font-weight: bold;
+    }
   }
 }
