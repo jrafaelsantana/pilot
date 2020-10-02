@@ -157,13 +157,19 @@
   "view_transaction": "Visualizar transação",
   "header": {
     "account": {
-      "settings": "Minha conta",
-      "logout": "Encerrar sessão"
+      "account_info": "Dados cadastrais",
+      "bank_title": "Dados bancários",
+      "change_password": "Alterar senha",
+      "general": "Geral",
+      "logout": "Encerrar sessão",
+      "manage_team": "Gerenciamento de equipe",
+      "settings": "Minha conta"
     },
     "environment": {
       "text_action_live": "ambiente de testes",
       "text_action_test": "Mudar para live",
-      "text_live": "Você está no ambiente live. Para testar sua integração, faça isso no",
+      "text_live_1": "Você está no ambiente live.",
+      "text_live_2": "Para testar sua integração, faça isso no",
       "text_test_1": "Você está no ambiente de testes, operações realizadas neste ambiente",
       "text_test_2": "não geram pagamentos reais."
     },
