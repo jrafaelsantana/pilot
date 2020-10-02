@@ -1524,6 +1524,7 @@
       "action_refund": "Estornar",
       "action_reprocess": "Reprocessar",
       "action_reprocessing": "Reprocessando",
+      "export_refund_pdf": "Comprovante de estorno",
       "alert": {
         "chargeback_reason": "Motivo do chargeback:",
         "pending_review": "Existe {{count}} transação pendente de revisão.",
@@ -1607,6 +1608,28 @@
         "title": "Histórico da transação",
         "value": "Valor: ",
         "tid": "TID: "
+      },
+      "export": {
+        "introduction": "Olá, {{company}}\n\nInformamos que a compra foi cancelada com sucesso conforme sua solicitação. Em caso de dúvida, por favor ligue para nossa equipe de relacionamento com o cliente.",
+        "title": "Dados do estorno",
+        "favored_title": "Dados do favorecido",
+        "transaction_id": "ID da transação:",
+        "date_created": "Data da compra:",
+        "field_amount": "Valor da compra:",
+        "refunded_amount": "Valor do cancelamento:",
+        "date_refunded": "Data do cancelamento:",
+        "bank_code": "Banco:",
+        "bank_agency": "Agência:",
+        "bank_account": "Conta:",
+        "bank_account_type": "Tipo de conta:",
+        "authorization_id": "ID da autorização:",
+        "card_number": "Cartão utilizado:",
+        "card_holder_name": "Nome do titular:",
+        "card_brand": "Bandeira:",
+        "attention": "Atenção: ",
+        "attention_message": "O cancelamento foi realizado com sucesso pela Pagar.me. Porém, o crédito concedido ao seu cliente dependerá da data de fechamento da fatura e só poderá ser realizado mediante o banco emissor do cartão. Único responsável pela fatura do cliente.",
+        "farewall": "Atenciosamente,\nEquipe Pagar.me\nSão Paulo, {{date}}",
+        "footer": "relacionamento@pagar.me\n\nRua Fidêncio Ramos, nº 308, 9º andar, conjunto 91, Vila Olímpia, na Cidade de São Paulo, estado de São Paulo, CEP 04551-010\n\nwww.pagar.me"
       },
       "header": {
         "approve": "Aprovar",

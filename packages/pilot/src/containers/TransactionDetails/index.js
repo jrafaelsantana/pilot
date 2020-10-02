@@ -269,6 +269,7 @@ class TransactionDetails extends Component {
   getActions () {
     const {
       actionLabels,
+      handleRefundReceiptDownload,
       headerLabels,
       loading: {
         reprocess,
@@ -285,6 +286,7 @@ class TransactionDetails extends Component {
         capabilities,
         payment: {
           method,
+          refund_amount,
         },
       },
     } = this.props
@@ -316,6 +318,12 @@ class TransactionDetails extends Component {
       icon: <IconReverse width={12} height={12} />,
       onClick: onRefund,
       title: actionLabels.refund,
+    }
+
+    const onRefundReceipt = {
+      icon: <DownloadIcon width={12} height={12} />,
+      onClick: handleRefundReceiptDownload,
+      title: actionLabels.exportRefundPdf,
     }
 
     const getManualReviewTransactionActions = (trx) => {
@@ -352,6 +360,11 @@ class TransactionDetails extends Component {
             always(permissions.reprocess)
           ),
           always(onReprocessAction),
+          always(null)
+        ),
+        ifElse(
+          () => refund_amount > 0,
+          always(onRefundReceipt),
           always(null)
         ),
         ifElse(
@@ -790,6 +803,7 @@ TransactionDetails.propTypes = {
     boleto: PropTypes.string,
     capture: PropTypes.string,
     export: PropTypes.string,
+    exportRefundPdf: PropTypes.string,
     refund: PropTypes.string,
     reprocess: PropTypes.string,
     reprocessing: PropTypes.string,
@@ -817,6 +831,7 @@ TransactionDetails.propTypes = {
     zip_code: PropTypes.string,
   }).isRequired,
   expandRecipients: PropTypes.bool,
+  handleRefundReceiptDownload: PropTypes.func,
   headerLabels: PropTypes.shape({
     installments: PropTypes.string,
     status: PropTypes.string,
@@ -1005,6 +1020,7 @@ TransactionDetails.propTypes = {
 
 TransactionDetails.defaultProps = {
   expandRecipients: false,
+  handleRefundReceiptDownload: () => {},
   loading: {
     reprocess: false,
   },

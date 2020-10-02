@@ -8,6 +8,7 @@
     },
     "amount": 1000,
     "antifraud": null,
+    "authorization_code": null,
     "boleto": {
       "barcode": "1234 5678",
       "due_date": "2018-04-03T03:00:00.000Z",
