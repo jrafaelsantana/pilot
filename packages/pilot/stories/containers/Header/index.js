@@ -22,7 +22,6 @@ const MessageExample = () => {
         onBack={action('onBack')}
         onBackToOldVersion={action('onBackToOldVersion')}
         onLogout={action('onLogout')}
-        onSettings={action('onSettings')}
         onWelcome={action('onWelcome')}
         routes={[]}
         t={t}

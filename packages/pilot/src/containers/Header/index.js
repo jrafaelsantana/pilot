@@ -14,13 +14,9 @@ import {
   HeaderContent,
   HeaderMenu,
   HeaderTitle,
-  Popover,
-  PopoverContent,
-  PopoverMenu,
   Spacing,
 } from 'former-kit'
 
-import IconTestAmbientOff from 'emblematic-icons/svg/TestAmbientOff24.svg'
 import IconArrowDownRight from 'emblematic-icons/svg/ArrowDownRight24.svg'
 import IconRocket from './rocket.svg'
 
@@ -31,12 +27,31 @@ import environment, {
 
 import style from './style.css'
 import isPaymentLink from '../../validation/isPaymentLink'
-import getPermission from '../../utils/helpers/getPermission'
 
 const getEnvironmentUrl = () => (
   environment === 'test'
     ? liveUrl
     : testUrl
+)
+
+const renderPopoverItems = (sectionTitle, items) => (
+  <Fragment>
+    <h5 className={style.popoverSectionTitle}>
+      {sectionTitle}
+    </h5>
+    {
+    items.map(({ action, title }) => (
+      <button
+        className={style.popoverItem}
+        key={title}
+        onClick={action}
+        type="button"
+      >
+        { title }
+      </button>
+    ))
+    }
+  </Fragment>
 )
 
 const renderTestEnviromentNav = t => (
@@ -51,56 +66,37 @@ const renderTestEnviromentNav = t => (
   </div>
 )
 
-const renderEnvironmentButton = ({
-  t,
-}) => (
-  <Popover
-    content={(
-      <PopoverContent>
-        <small>
-          {t('header.environment.text_live')}&nbsp;
-          <a href={getEnvironmentUrl()}>
-            {t('header.environment.text_action_live')}
-          </a>.
-        </small>
-      </PopoverContent>
-    )}
-    placement="bottomEnd"
-  >
-    <Button
-      fill="clean"
-      icon={<IconTestAmbientOff />}
-    />
-  </Popover>
-)
-
 const HeaderContainer = ({
   company,
   onBack,
   onBackToOldVersion,
   onLogout,
-  onSettings,
   onWelcome,
   routes,
+  sendTo,
   showWelcomeButton,
   t,
   user,
 }) => {
   const companyType = company.type
 
-  const items = isPaymentLink(companyType)
-    ? [
-      { action: onSettings, title: t('header.account.settings') },
-      { action: onLogout, title: t('header.account.logout') },
-    ]
-    : [
-      { action: onSettings, title: t('header.account.settings') },
-      { action: onBackToOldVersion, title: t('header.back_to_old_version') },
-      { action: onLogout, title: t('header.account.logout') },
-    ]
+  const myAccountItems = [
+    // { action: () => null, title: t('header.account.account_info') },
+    // { action: () => null, title: t('header.account.bank_title') },
+    // { action: () => null, title: t('header.account.manage_team') },
+    { action: () => sendTo('/account'), title: t('header.account.change_password') },
+  ]
+
+  const geralItems = [
+    { action: onLogout, title: t('header.exit') },
+  ]
+
+  if (isPaymentLink(companyType)) {
+    geralItems.unshift({ action: onBackToOldVersion, title: t('header.back_to_old_version') })
+  }
 
   return (
-    <>
+    <Fragment>
       { environment === 'test' && renderTestEnviromentNav(t) }
       <Header>
         <HashRouter>
@@ -128,7 +124,7 @@ const HeaderContainer = ({
         </HashRouter>
         <HeaderContent>
           {showWelcomeButton && (
-            <>
+            <Fragment>
               <Button
                 icon={<IconRocket />}
                 onClick={onWelcome}
@@ -139,15 +135,8 @@ const HeaderContainer = ({
               </Button>
 
               <Spacing size="small" />
-            </>
+            </Fragment>
           )}
-
-          {
-            companyType
-              && environment === 'live'
-              && !isPaymentLink(companyType)
-              && renderEnvironmentButton({ t })
-          }
 
           <Spacing size="small" />
 
@@ -155,30 +144,37 @@ const HeaderContainer = ({
             title={(
               <Fragment>
                 <Avatar alt={user.name} />
-                <span>{user.name}</span>
+                <span className={style.userName}>{user.name}</span>
               </Fragment>
             )}
           >
-            <PopoverContent>
-              <strong>
-                {user.name}
-              </strong>
-              <small>
-                { getPermission(user.permission, company, t) }
-              </small>
-            </PopoverContent>
-            <PopoverMenu
-              items={items}
-            />
+            <div className={style.popoverContent}>
+              <div className={style.popoverAccountInfo}>
+                <h4>{user.name}</h4>
+                <p>{user.email}</p>
+              </div>
+
+              { environment === 'live' && !isPaymentLink(companyType)
+                && (
+                <div className={style.popoverEnvironment}>
+                  <h5>{t('header.environment.text_live_1')}</h5>
+                  <p>
+                    {t('header.environment.text_live_2')}&nbsp;
+                    <a href={getEnvironmentUrl()}>
+                      {t('header.environment.text_action_live')}
+                    </a>.
+                  </p>
+                </div>
+                )
+              }
+              {renderPopoverItems(t('header.account.settings'), myAccountItems)}
+              {renderPopoverItems(t('header.account.general'), geralItems)}
+            </div>
           </HeaderMenu>
         </HeaderContent>
       </Header>
-    </>
+    </Fragment>
   )
-}
-
-renderEnvironmentButton.propTypes = {
-  t: PropTypes.func.isRequired,
 }
 
 HeaderContainer.propTypes = {
@@ -188,7 +184,6 @@ HeaderContainer.propTypes = {
   onBack: PropTypes.func.isRequired,
   onBackToOldVersion: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired,
-  onSettings: PropTypes.func.isRequired,
   onWelcome: PropTypes.func.isRequired,
   routes: PropTypes.arrayOf(PropTypes.shape({
     component: isValidElement,
@@ -196,6 +191,7 @@ HeaderContainer.propTypes = {
     path: PropTypes.string,
     title: PropTypes.string,
   })).isRequired,
+  sendTo: PropTypes.func.isRequired,
   showWelcomeButton: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
   user: PropTypes.shape({

@@ -1,16 +1,18 @@
+@import "former-kit-skin-pagarme/dist/styles/spacing.css";
 @import "former-kit-skin-pagarme/dist/styles/colors/light.css";
+@import "former-kit-skin-pagarme/dist/styles/typography.css";
 
 .testEnvironmentLabel {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
+  background-color: var(--color-barney-purple-100);
+  border-radius: 6px;
+  color: var(--color-white);
+  display: flex;
+  font-size: 14px;
+  justify-content: space-between;
+  line-height: 20px;
   margin: 10px 20px 0 20px;
   padding: 10px 15px;
-  background-color: var(--color-barney-purple-100);
-  color: var(--color-white);
-  border-radius: 6px;
-  font-size: 14px;
-  line-height: 20px;
 }
 
 .testEnvironmentLabel p {
@@ -18,8 +20,8 @@
 }
 
 .testEnvironmentLabel a {
-  font-weight: 600;
   color: var(--color-white);
+  font-weight: 600;
 }
 
 .testEnvironmentLabel a:hover {
@@ -28,4 +30,87 @@
 
 .welcome {
   text-transform: none;
+}
+
+.popoverContent {
+  padding-bottom: 14px;
+  width: 264px;
+}
+
+.popoverAccountInfo {
+  border-bottom: 1px solid var(--color-squanchy-gray-20);
+  padding: var(--spacing-small);
+
+  & h4 {
+    color: var(--color-barney-purple-100);
+    font-weight: bold;
+    line-height: var(--spacing-medium);
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  & p {
+    font-size: var(--caption-font-size);
+    line-height: var(--spacing-small);
+    color: var(--color-squanchy-gray-200);
+    margin: 0;
+  }
+}
+
+.popoverEnvironment {
+  border-bottom: 1px solid var(--color-squanchy-gray-20);
+  padding: var(--spacing-small);
+
+  & h5 {
+    color: var(--color-squanchy-gray-400);
+    font-weight: bold;
+    line-height: var(--spacing-medium);
+    margin: 0;
+  }
+
+  & p {
+    color: var(--color-squanchy-gray-200);
+    font-size: var(--caption-font-size);
+    line-height: var(--spacing-small);
+    margin: 0;
+  }
+}
+
+.popoverSectionTitle {
+  color: var(--color-squanchy-gray-200);
+  font-family: var(--body-font-family);
+  font-size: var(--caption-font-size);
+  line-height: var(--spacing-small);
+  margin: 0;
+  padding: var(--spacing-tiny) var(--spacing-small);
+}
+
+.popoverItem {
+  font-family: var(--body-font-family);
+  font-style: normal;
+  font-size: 14px;
+  line-height: var(--spacing-medium);
+  color: var(--color-birdperson-gray-600);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: block;
+  outline: none;
+  padding: 2px var(--spacing-small) 2px var(--spacing-medium);
+  text-align: left;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.popoverItem:hover {
+  color: var(--color-squanchy-gray-400);
+}
+
+.userName {
+  width: 264px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
