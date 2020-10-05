@@ -95,6 +95,7 @@ const transactions = {
             transaction_id: 1565115,
           },
           antifraud: null,
+          authorization_code: '83378',
           amount: 2000,
           customer: {
             name: 'Test',
@@ -156,6 +157,7 @@ const transactions = {
           },
           amount: 5490,
           antifraud: null,
+          authorization_code: '664576',
           customer: {
             address: {
               city: 'Porto Alegre',
@@ -226,6 +228,7 @@ const transactions = {
           status_reason: 'capture_timeout',
           amount: 5490,
           antifraud: null,
+          authorization_code: '772818',
           customer: {
             address: {
               city: 'Porto Alegre',
@@ -296,6 +299,7 @@ const transactions = {
           },
           amount: 100000,
           antifraud: null,
+          authorization_code: '557259',
           customer: null,
           card: {
             holder_name: 'Test',
@@ -337,6 +341,7 @@ const transactions = {
           },
           amount: 100000,
           antifraud: null,
+          authorization_code: null,
           customer: null,
           card: {
             holder_name: 'Test',
@@ -387,6 +392,7 @@ const transactions = {
             installments: 1,
           },
           antifraud: null,
+          authorization_code: '883046',
           amount: 1000,
           customer: {
             address: {
@@ -458,6 +464,7 @@ const transactions = {
           },
           amount: 1000,
           antifraud: null,
+          authorization_code: '801151',
           customer: {
             address: {
               city: 'São Paulo',
@@ -528,6 +535,7 @@ const transactions = {
           },
           amount: 48521,
           antifraud: null,
+          authorization_code: '797465',
           customer: {
             address: {
               city: 'São Paulo',
@@ -598,6 +606,7 @@ const transactions = {
           },
           amount: 20000,
           antifraud: null,
+          authorization_code: '583450',
           customer: {
             name: 'Test',
             email: 'test@test.com',
@@ -658,6 +667,7 @@ const transactions = {
           },
           amount: 56435,
           antifraud: null,
+          authorization_code: '748915',
           customer: null,
           card: {
             holder_name: 'Test',
@@ -699,6 +709,7 @@ const transactions = {
           },
           amount: 5646,
           antifraud: null,
+          authorization_code: '256078',
           customer: null,
           card: {
             holder_name: 'Test',
@@ -740,6 +751,7 @@ const transactions = {
           },
           amount: 34567,
           antifraud: null,
+          authorization_code: null,
           customer: null,
           card: {
             holder_name: 'Test',
@@ -781,6 +793,7 @@ const transactions = {
           },
           amount: 4567,
           antifraud: null,
+          authorization_code: null,
           customer: null,
           card: {
             holder_name: 'Test',
@@ -822,6 +835,7 @@ const transactions = {
           },
           amount: 45643,
           antifraud: null,
+          authorization_code: '978051',
           customer: null,
           card: {
             holder_name: 'Test',
@@ -862,6 +876,7 @@ const transactions = {
             refund_amount: 34567,
           },
           antifraud: null,
+          authorization_code: '763549',
           amount: 34567,
           customer: null,
           card: {

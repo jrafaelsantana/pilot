@@ -8,6 +8,7 @@
     },
     "amount": 21050,
     "antifraud": null,
+    "authorization_code": "517887",
     "boleto": null,
     "capabilities": {
       "capturable": false,

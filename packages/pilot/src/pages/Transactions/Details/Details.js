@@ -104,6 +104,7 @@ const getActionLabels = t => ({
   boleto: t('pages.transaction.action_boleto'),
   capture: t('pages.transaction.action_capture'),
   export: t('export'),
+  exportRefundPdf: t('pages.transaction.export_refund_pdf'),
   refund: t('pages.transaction.action_refund'),
   reprocess: t('pages.transaction.action_reprocess'),
   reprocessing: t('pages.transaction.action_reprocessing'),
@@ -275,6 +276,9 @@ class TransactionDetails extends Component {
       transactionDetailsLabels: getTransactionDetailsLabels(t),
     }
 
+    this.handleRefundReceiptDownload = this.handleRefundReceiptDownload.bind(
+      this
+    )
     this.handleAlertDismiss = this.handleAlertDismiss.bind(this)
     this.handleAlertDismiss = this.handleAlertDismiss.bind(this)
     this.handleCapture = this.handleCapture.bind(this)
@@ -345,6 +349,19 @@ class TransactionDetails extends Component {
     this.setState({
       expandRecipients: true,
     }, () => window.print()) // eslint-disable-line no-undef
+  }
+
+  handleRefundReceiptDownload () {
+    const { client, company, t } = this.props
+    const { result } = this.state
+
+    return import('./refundReceiptExport')
+      .then(refundReceiptExport => refundReceiptExport.default({
+        client,
+        companyName: company.name,
+        t,
+        transaction: result.transaction,
+      }))
   }
 
   handleUpdate (id, forceUpdate) {
@@ -685,6 +702,7 @@ class TransactionDetails extends Component {
           customerLabels={customerLabels}
           expandRecipients={expandRecipients}
           headerLabels={headerLabels}
+          handleRefundReceiptDownload={this.handleRefundReceiptDownload}
           installmentColumns={installmentColumns}
           loading={loading}
           metadataTitle={t('pages.transaction.metadata')}
@@ -766,6 +784,7 @@ class TransactionDetails extends Component {
 TransactionDetails.propTypes = {
   client: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   company: PropTypes.shape({
+    name: PropTypes.string,
     type: PropTypes.string,
   }),
   error: PropTypes.shape({

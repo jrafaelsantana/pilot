@@ -251,6 +251,7 @@ const transactionSpec = {
   },
   amount: prop('amount'),
   antifraud: getAntifraudProp,
+  authorization_code: prop('authorization_code'),
   boleto: ifElse(
     propEq('payment_method', 'boleto'),
     applySpec({
