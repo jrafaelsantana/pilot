@@ -77,6 +77,18 @@ const verifyCapabilityPermission = client => (
     })
 )
 
+const alreadyTransacted = async (client) => {
+  try {
+    const [transactions, payables] = await Promise.all([
+      client.transactions.all({ count: 1 }),
+      client.payables.all({ count: 1 }),
+    ])
+    return isNotEmpty(transactions) || isNotEmpty(payables)
+  } catch (e) {
+    return true
+  }
+}
+
 const loginEpic = action$ => action$
   .pipe(
     ofType(LOGIN_REQUEST),
@@ -153,7 +165,7 @@ const companyEpic = (action$, state$) => action$.pipe(
         payload: errorPayload,
       }))
   }),
-  mergeMap((action) => {
+  mergeMap(async (action) => {
     if (action.error) {
       return rxOf(action)
     }
@@ -161,17 +173,10 @@ const companyEpic = (action$, state$) => action$.pipe(
     const { value: state } = state$
     const { account: { client } } = state
 
-    return client
-      .transactions
-      .all({ count: 1 })
-      .then((transactions) => {
-        const alreadyTransacted = isNotEmpty(transactions)
-        return { ...action, alreadyTransacted }
-      })
-      .catch(errorPayload => ({
-        error: true,
-        payload: errorPayload,
-      }))
+    return Promise.resolve({
+      ...action,
+      alreadyTransacted: await alreadyTransacted(client),
+    })
   }),
   mergeMap((action) => {
     if (action.error) {
