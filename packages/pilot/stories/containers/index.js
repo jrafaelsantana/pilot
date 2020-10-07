@@ -112,6 +112,8 @@ import Onboarding from './Onboarding'
 import PaymentLinks from './PaymentLinks'
 import ChooseDashboard from './ChooseDashboard'
 
+import Header from './Header'
+
 storiesOf('Containers|Bank/Account', module)
   .add('selector', () => <BankAccountSelector />)
   .add('settings', () => <BankAccount />)
@@ -522,3 +524,7 @@ storiesOf('Containers|Choose Dashboard/Card')
 
 storiesOf('Containers|Choose Dashboard/Container')
   .add('Container', () => <ChooseDashboard.Container />)
+
+storiesOf('Containers|Header')
+  .add('Header', () => <Header />)
+

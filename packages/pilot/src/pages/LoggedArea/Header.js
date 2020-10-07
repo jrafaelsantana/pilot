@@ -62,7 +62,6 @@ const Header = ({
       company={company}
       onBack={goBack}
       onLogout={onLogout}
-      onSettings={() => push(routes.accountSettings.path)}
       onWelcome={() => push(routes.emptyState.path)}
       onBackToOldVersion={
         () => {
@@ -71,6 +70,7 @@ const Header = ({
         }
       }
       routes={values(routes)}
+      sendTo={push}
       showWelcomeButton={showWelcomeButton}
       t={t}
       user={user}
