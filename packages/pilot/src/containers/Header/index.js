@@ -91,7 +91,7 @@ const HeaderContainer = ({
     { action: onLogout, title: t('header.exit') },
   ]
 
-  if (isPaymentLink(companyType)) {
+  if (!isPaymentLink(companyType)) {
     geralItems.unshift({ action: onBackToOldVersion, title: t('header.back_to_old_version') })
   }
 
