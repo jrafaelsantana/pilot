@@ -28,7 +28,6 @@ class CompanySettings extends Component {
 
   render () {
     const {
-      address,
       antifraud,
       apiKeys,
       apiVersion,
@@ -49,11 +48,9 @@ class CompanySettings extends Component {
       deleteUserStatus,
       environment,
       fees,
-      general,
       handleCreateUser,
       handleDeleteUser,
       isMDRzao,
-      managingPartner,
       onBankAccountCancel,
       onBankAccountChange,
       onBankAccountCreate,
@@ -136,7 +133,6 @@ class CompanySettings extends Component {
         {selectedIndex === 3
           && (
             <RegisterInfoTab
-              address={address}
               bankAccounts={bankAccounts}
               bankAccountActionsDisabled={bankActionsDisabled}
               bankAccountData={bankData}
@@ -144,9 +140,7 @@ class CompanySettings extends Component {
               bankAccountSelected={bankAccountSelected}
               bankAccountChangeActionDisabled={bankAccountChangeActionDisabled}
               bankAccountSelectedView={bankAccountSelectedView}
-              general={general}
               isPaymentLink={isPaymentLink(company)}
-              managingPartner={managingPartner}
               onBankAccountCancel={onBankAccountCancel}
               onBankAccountChange={onBankAccountChange}
               onBankAccountCreate={onBankAccountCreate}
@@ -174,15 +168,6 @@ const bankAccountShape = {
 }
 
 CompanySettings.propTypes = {
-  address: PropTypes.shape({
-    city: PropTypes.string,
-    complementary: PropTypes.string,
-    neighborhood: PropTypes.string,
-    state: PropTypes.string,
-    street: PropTypes.string,
-    streetNumber: PropTypes.string,
-    zipcode: PropTypes.string,
-  }).isRequired,
   antifraud: PropTypes.shape({
     fraud_covered: PropTypes.bool.isRequired,
   }).isRequired,
@@ -258,20 +243,9 @@ CompanySettings.propTypes = {
     })),
     transfer: PropTypes.number,
   }).isRequired,
-  general: PropTypes.shape({
-    cnpj: PropTypes.string,
-    fullName: PropTypes.string,
-    name: PropTypes.string,
-    siteUrl: PropTypes.string,
-  }).isRequired,
   handleCreateUser: PropTypes.func.isRequired,
   handleDeleteUser: PropTypes.func.isRequired,
   isMDRzao: PropTypes.bool.isRequired,
-  managingPartner: PropTypes.shape({
-    cpf: PropTypes.string,
-    email: PropTypes.string,
-    name: PropTypes.string,
-  }).isRequired,
   onBankAccountCancel: PropTypes.func.isRequired,
   onBankAccountChange: PropTypes.func.isRequired,
   onBankAccountCreate: PropTypes.func.isRequired,

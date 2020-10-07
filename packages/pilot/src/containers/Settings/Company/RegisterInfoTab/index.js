@@ -4,13 +4,9 @@ import {
   CardContent,
   CardTitle,
 } from 'former-kit'
-import CompanyGeneral from './CompanyGeneral'
-import CompanyAddress from './CompanyAddress'
-import CompanyAccountManager from './CompanyAccountManager'
 import CompanyBankAccount from '../../BankAccount'
 
 const RegisterInfoTab = ({
-  address,
   bankAccountActionsDisabled,
   bankAccountChangeActionDisabled,
   bankAccountData,
@@ -18,9 +14,7 @@ const RegisterInfoTab = ({
   bankAccountSelected,
   bankAccountSelectedView,
   bankAccounts,
-  general,
   isPaymentLink,
-  managingPartner,
   onBankAccountCancel,
   onBankAccountChange,
   onBankAccountCreate,
@@ -28,28 +22,6 @@ const RegisterInfoTab = ({
   t,
 }) => (
   <Fragment>
-    <CardContent>
-      <p>{t('pages.settings.company.card.register.card_title')}</p>
-    </CardContent>
-
-    <CardTitle
-      title={t('pages.settings.company.card.register.card_company')}
-    />
-
-    <CardContent>
-      <CompanyGeneral
-        t={t}
-        general={general}
-      />
-    </CardContent>
-
-    <CardContent>
-      <CompanyAddress
-        t={t}
-        address={address}
-      />
-    </CardContent>
-
     {!isPaymentLink && (
       <Fragment>
         <CardTitle
@@ -73,17 +45,6 @@ const RegisterInfoTab = ({
         </CardContent>
       </Fragment>
     )}
-
-    <CardTitle
-      title={t('pages.settings.company.card.register.account_manager')}
-    />
-
-    <CardContent>
-      <CompanyAccountManager
-        t={t}
-        managingPartner={managingPartner}
-      />
-    </CardContent>
   </Fragment>
 )
 
@@ -101,15 +62,6 @@ const bankAccountShape = {
 }
 
 RegisterInfoTab.propTypes = {
-  address: PropTypes.shape({
-    city: PropTypes.string,
-    complementary: PropTypes.string,
-    neighborhood: PropTypes.string,
-    state: PropTypes.string,
-    street: PropTypes.string,
-    streetNumber: PropTypes.string,
-    zipcode: PropTypes.string,
-  }).isRequired,
   bankAccountActionsDisabled: PropTypes.bool.isRequired,
   bankAccountChangeActionDisabled: PropTypes.bool.isRequired,
   bankAccountData: PropTypes.shape({
@@ -137,19 +89,7 @@ RegisterInfoTab.propTypes = {
     'addition',
     'selection',
   ]).isRequired,
-  /* eslint-enable max-len, react/sort-prop-types */
-  general: PropTypes.shape({
-    cnpj: PropTypes.string,
-    fullName: PropTypes.string,
-    name: PropTypes.string,
-    siteUrl: PropTypes.string,
-  }).isRequired,
   isPaymentLink: PropTypes.bool.isRequired,
-  managingPartner: PropTypes.shape({
-    cpf: PropTypes.string,
-    email: PropTypes.string,
-    name: PropTypes.string,
-  }).isRequired,
   onBankAccountCancel: PropTypes.func.isRequired,
   onBankAccountChange: PropTypes.func.isRequired,
   onBankAccountCreate: PropTypes.func.isRequired,

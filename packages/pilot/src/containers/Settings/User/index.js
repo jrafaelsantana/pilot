@@ -3,76 +3,108 @@ import PropTypes from 'prop-types'
 import {
   Card,
   CardTitle,
-  CardSection,
-  CardContent,
-  CardSectionDoubleLineTitle,
+  TabBar,
+  TabItem,
 } from 'former-kit'
 
-import IconInfo from 'emblematic-icons/svg/Info32.svg'
-import PasswordRedefinitionForm from './passwordRedefinitionForm'
+import ProfileInfoTab from './ProfileInfoTab'
+import PasswordRedefinitionForm from './PasswordRedefinitionForm'
+
+import style from './style.css'
 
 class UserSettings extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      passwordInfoSectionCollapsed: false,
+      selectedIndex: 0,
     }
+    this.changeTab = this.changeTab.bind(this)
   }
 
-  handleSectionTitleClick (cardSectionStateProp) {
-    return () => {
-      const {
-        [cardSectionStateProp]: currentCollapseState,
-      } = this.state
-
-      this.setState({
-        [cardSectionStateProp]: !currentCollapseState,
-      })
-    }
+  changeTab (selectedIndex) {
+    this.setState({ selectedIndex })
   }
 
   render () {
     const {
+      address,
+      general,
       handlePasswordFormSubmit,
+      managingPartner,
       passwordFormStatus,
       t,
     } = this.props
 
-    const { passwordInfoSectionCollapsed } = this.state
+    const {
+      selectedIndex,
+    } = this.state
 
     return (
-      <Card>
-        <CardTitle
-          title={t('pages.settings.user.card.header')}
-        />
+      <>
+        <TabBar
+          onTabChange={this.changeTab}
+          selected={selectedIndex}
+          variant="just-text"
+        >
+          <TabItem text={t('pages.settings.user.tabs.profile_info')} />
+          <TabItem text={t('pages.settings.user.tabs.change_password')} />
+        </TabBar>
 
-        <CardContent>
-          <CardSection>
-            <CardSectionDoubleLineTitle
-              collapsed={passwordInfoSectionCollapsed}
-              icon={<IconInfo height={16} width={16} />}
-              onClick={this.handleSectionTitleClick('passwordInfoSectionCollapsed')}
-              subtitle={t('pages.settings.user.card.access.subtitle')}
-              title={t('pages.settings.user.card.access.title')}
-            />
-            {!passwordInfoSectionCollapsed
-              && (
+        <div className={style.tabsContainer}>
+          {
+            selectedIndex === 0
+            && (
+              <ProfileInfoTab
+                address={address}
+                general={general}
+                managingPartner={managingPartner}
+                t={t}
+              />
+            )
+          }
+          {
+            selectedIndex === 1
+            && (
+              <Card>
+                <CardTitle
+                  title={t('pages.settings.user.card.access.title')}
+                />
                 <PasswordRedefinitionForm
                   onSubmit={handlePasswordFormSubmit}
                   status={passwordFormStatus}
                   t={t}
                 />
-              )
-            }
-          </CardSection>
-        </CardContent>
-      </Card>
+              </Card>
+            )
+          }
+        </div>
+      </>
     )
   }
 }
 
 UserSettings.propTypes = {
+  address: PropTypes.shape({
+    city: PropTypes.string,
+    complementary: PropTypes.string,
+    neighborhood: PropTypes.string,
+    state: PropTypes.string,
+    street: PropTypes.string,
+    streetNumber: PropTypes.string,
+    zipcode: PropTypes.string,
+  }).isRequired,
+  general: PropTypes.shape({
+    cnpj: PropTypes.string,
+    fullName: PropTypes.string,
+    name: PropTypes.string,
+    siteUrl: PropTypes.string,
+  }).isRequired,
   handlePasswordFormSubmit: PropTypes.func.isRequired,
+  managingPartner: PropTypes.shape({
+    cpf: PropTypes.string,
+    email: PropTypes.string,
+    name: PropTypes.string,
+  }).isRequired,
   passwordFormStatus: PropTypes.shape({
     error: PropTypes.string,
     success: PropTypes.bool,

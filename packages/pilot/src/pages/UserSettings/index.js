@@ -14,8 +14,8 @@ import { translate } from 'react-i18next'
 import UserSettings from '../../containers/Settings/User'
 
 const mapStateToProps = ({
-  account: { client, user },
-}) => ({ client, user })
+  account: { client, company, user },
+}) => ({ client, company, user })
 
 const enhanced = compose(
   withRouter,
@@ -27,12 +27,31 @@ class UserSettingsPage extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      companyInfo: {
+        address: {},
+        general: {},
+        managingPartner: {},
+      },
       passwordFormStatus: {
         error: null,
         success: false,
       },
     }
     this.handleRedefinePassword = this.handleRedefinePassword.bind(this)
+    this.requestData = this.requestData.bind(this)
+  }
+
+  componentDidMount () {
+    this.requestData()
+  }
+
+  requestData () {
+    const { client } = this.props
+
+    client.company.info()
+      .then((companyInfo) => {
+        this.setState({ companyInfo })
+      })
   }
 
   /* eslint-disable-next-line camelcase */
@@ -74,12 +93,22 @@ class UserSettingsPage extends React.Component {
     const {
       t,
     } = this.props
-    const { passwordFormStatus } = this.state
+    const {
+      companyInfo: {
+        address,
+        general,
+        managingPartner,
+      },
+      passwordFormStatus,
+    } = this.state
 
     return (
       <UserSettings
-        passwordFormStatus={passwordFormStatus}
+        address={address}
+        general={general}
+        managingPartner={managingPartner}
         handlePasswordFormSubmit={this.handleRedefinePassword}
+        passwordFormStatus={passwordFormStatus}
         t={t}
       />
     )

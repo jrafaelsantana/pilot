@@ -1,0 +1,4 @@
+.cardsContainer {
+  display: grid;
+  grid-row-gap: 32px;
+}
