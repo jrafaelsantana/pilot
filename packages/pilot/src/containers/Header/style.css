@@ -109,7 +109,7 @@
 }
 
 .userName {
-  width: 264px;
+  max-width: 264px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
