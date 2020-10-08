@@ -43,6 +43,7 @@ const UserSettings = ({
   return (
     <>
       <TabBar
+        align="start"
         onTabChange={changeTab}
         selected={tabIndex}
         variant="just-text"
