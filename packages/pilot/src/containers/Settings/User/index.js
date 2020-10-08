@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   Card,
@@ -12,47 +13,47 @@ import PasswordRedefinitionForm from './PasswordRedefinitionForm'
 
 import style from './style.css'
 
-class UserSettings extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      selectedIndex: 0,
+const tabIndexByName = {
+  accountInfo: 0,
+  password: 1,
+}
+
+const UserSettings = ({
+  address,
+  general,
+  handlePasswordFormSubmit,
+  managingPartner,
+  passwordFormStatus,
+  t,
+}) => {
+  const [tabIndex, setTabIndex] = useState(0)
+  const history = useHistory()
+
+  useEffect(() => {
+    if (history.location.state) {
+      const tabName = history.location?.state?.tab
+      setTabIndex(tabIndexByName[tabName])
     }
-    this.changeTab = this.changeTab.bind(this)
+  }, [history.location.state])
+
+  const changeTab = (newTabIndex) => {
+    setTabIndex(newTabIndex)
   }
 
-  changeTab (selectedIndex) {
-    this.setState({ selectedIndex })
-  }
+  return (
+    <>
+      <TabBar
+        onTabChange={changeTab}
+        selected={tabIndex}
+        variant="just-text"
+      >
+        <TabItem text={t('pages.settings.user.tabs.profile_info')} />
+        <TabItem text={t('pages.settings.user.tabs.change_password')} />
+      </TabBar>
 
-  render () {
-    const {
-      address,
-      general,
-      handlePasswordFormSubmit,
-      managingPartner,
-      passwordFormStatus,
-      t,
-    } = this.props
-
-    const {
-      selectedIndex,
-    } = this.state
-
-    return (
-      <>
-        <TabBar
-          onTabChange={this.changeTab}
-          selected={selectedIndex}
-          variant="just-text"
-        >
-          <TabItem text={t('pages.settings.user.tabs.profile_info')} />
-          <TabItem text={t('pages.settings.user.tabs.change_password')} />
-        </TabBar>
-
-        <div className={style.tabsContainer}>
-          {
-            selectedIndex === 0
+      <div className={style.tabsContainer}>
+        {
+            tabIndex === tabIndexByName.accountInfo
             && (
               <ProfileInfoTab
                 address={address}
@@ -62,8 +63,8 @@ class UserSettings extends Component {
               />
             )
           }
-          {
-            selectedIndex === 1
+        {
+            tabIndex === tabIndexByName.password
             && (
               <Card>
                 <CardTitle
@@ -77,10 +78,9 @@ class UserSettings extends Component {
               </Card>
             )
           }
-        </div>
-      </>
-    )
-  }
+      </div>
+    </>
+  )
 }
 
 UserSettings.propTypes = {

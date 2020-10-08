@@ -81,10 +81,10 @@ const HeaderContainer = ({
   const companyType = company.type
 
   const myAccountItems = [
-    { action: () => sendTo('/account'), title: t('header.account.account_info') },
+    { action: () => sendTo({ pathname: '/account', state: { tab: 'accountInfo' } }), title: t('header.account.account_info') },
     // { action: () => null, title: t('header.account.bank_title') },
     // { action: () => null, title: t('header.account.manage_team') },
-    { action: () => sendTo('/account'), title: t('header.account.change_password') },
+    { action: () => sendTo({ pathname: '/account', state: { tab: 'password' } }), title: t('header.account.change_password') },
   ]
 
   const geralItems = [

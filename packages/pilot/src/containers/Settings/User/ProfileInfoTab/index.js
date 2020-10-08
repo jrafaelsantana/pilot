@@ -18,15 +18,15 @@ const ProfileInfoTab = ({
   managingPartner,
   t,
 }) => (
-  <div className={style.cardsContainer}>
-    <Card>
+  <div>
+    <Card className={style.marginBottom}>
       <CardTitle title={t('pages.settings.user.profile_info.general.title')} />
       <CardContent>
         <CompanyGeneralForm t={t} general={general} />
       </CardContent>
     </Card>
 
-    <Card>
+    <Card className={style.marginBottom}>
       <CardTitle title={t('pages.settings.user.profile_info.address.title')} />
       <CardContent>
         <CompanyAddressForm t={t} address={address} />
