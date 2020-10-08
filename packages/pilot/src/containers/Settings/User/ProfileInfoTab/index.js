@@ -20,21 +20,21 @@ const ProfileInfoTab = ({
 }) => (
   <div>
     <Card className={style.marginBottom}>
-      <CardTitle title={t('pages.settings.user.profile_info.general.title')} />
+      <CardTitle title={t('pages.settings.user.profile_info.general.title')} titleSize="large" />
       <CardContent>
         <CompanyGeneralForm t={t} general={general} />
       </CardContent>
     </Card>
 
     <Card className={style.marginBottom}>
-      <CardTitle title={t('pages.settings.user.profile_info.address.title')} />
+      <CardTitle title={t('pages.settings.user.profile_info.address.title')} titleSize="large" />
       <CardContent>
         <CompanyAddressForm t={t} address={address} />
       </CardContent>
     </Card>
 
     <Card>
-      <CardTitle title={t('pages.settings.user.profile_info.managing_partner.title')} />
+      <CardTitle title={t('pages.settings.user.profile_info.managing_partner.title')} titleSize="large" />
       <CardContent>
         <CompanyAccountManagerForm t={t} managingPartner={managingPartner} />
       </CardContent>

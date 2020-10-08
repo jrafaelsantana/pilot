@@ -70,6 +70,7 @@ const UserSettings = ({
               <Card>
                 <CardTitle
                   title={t('pages.settings.user.card.access.title')}
+                  titleSize="large"
                 />
                 <PasswordRedefinitionForm
                   onSubmit={handlePasswordFormSubmit}
