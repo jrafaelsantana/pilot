@@ -44,7 +44,7 @@ const Toolbar = ({
   onClear,
   t,
 }) => (
-  <CardActions>
+  <CardActions className={style.cardAction}>
     {ensureArray(children)
       .map((input, index) => renderChildrenInput({
         disabled,
