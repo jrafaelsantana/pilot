@@ -1320,6 +1320,41 @@
     "settings": {
       "user": {
         "menu": "Minha conta",
+        "tabs": {
+          "profile_info": "Dados cadastrais",
+          "change_password": "Alterar senha"
+        },
+        "profile_info": {
+          "general": {
+            "title": "Informações da empresa",
+            "form": {
+              "name": "Razão social",
+              "full_name": "Nome fantasia",
+              "cnpj": "CNPJ",
+              "site_url": "URL do site"
+            }
+          },
+          "address": {
+            "title": "Endereço",
+            "form": {
+              "street": "Rua",
+              "complementary": "Complemento",
+              "street_number": "Número",
+              "neighborhood": "Bairro",
+              "city": "Cidade",
+              "state": "Estado",
+              "zipcode": "CEP"
+            }
+          },
+          "managing_partner": {
+            "title": "Informações do sócio administrador",
+            "form": {
+              "name": "Nome",
+              "cpf": "CPF",
+              "phone": "Telefone"
+            }
+          }
+        },        
         "card": {
           "header": "Dados pessoais",
           "access": {
@@ -1462,10 +1497,7 @@
             "card_company": "Dados da empresa",
             "account_manager": "Contato responsável",
             "title": {
-              "company": "Informações da empresa",
-              "address": "Endereço",
               "documents": "Documentos",
-              "managing_partner": "Informações pessoais",
               "bank": "Informações da conta",
               "select": "Selecionar uma conta",
               "add": "Adicionar uma conta"
@@ -1476,14 +1508,6 @@
               "documents": "Visualize os documentos vinculados à sua conta.",
               "managing_partner": "Verifique ou edite informações do sócio administrador.",
               "bank": "Verifique ou adicione novas contas que você utilizará para realizar os saques da sua conta Pagar.me."
-            },
-            "general": {
-              "form": {
-                "name": "Nome",
-                "full_name": "Nome completo",
-                "cnpj": "CNPJ",
-                "site_url": "Site Url"
-              }
             },
             "bank": {
               "account_name": "Nome da conta",
@@ -1499,24 +1523,6 @@
               "invalid_cd": "Digito verificador inválido",
               "cancel": "Cancelar",
               "confirm": "Salvar Alterações"
-            },
-            "address": {
-              "form": {
-                "street": "Rua",
-                "complementary": "Complemento",
-                "street_number": "Número",
-                "neighborhood": "Bairro",
-                "city": "Cidade",
-                "state": "Estado",
-                "zipcode": "CEP"
-              }
-            },
-            "managing_partner": {
-              "form": {
-                "name": "Nome",
-                "cpf": "CPF",
-                "phone": "Telefone"
-              }
             }
           }
         }

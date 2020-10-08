@@ -42,7 +42,7 @@ const enhance = compose(
 
 const Header = ({
   company,
-  history: { goBack, push },
+  history: { goBack, push, replace },
   location: {
     pathname,
   },
@@ -70,7 +70,7 @@ const Header = ({
         }
       }
       routes={values(routes)}
-      sendTo={push}
+      sendTo={replace}
       showWelcomeButton={showWelcomeButton}
       t={t}
       user={user}

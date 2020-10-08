@@ -171,11 +171,8 @@ class CompanySettingsPage extends React.Component {
         loading: false,
       },
       companyInfo: {
-        address: {},
         apiKeys: null,
         apiVersion: null,
-        general: {},
-        managingPartner: {},
         pricing: [],
         team: [],
       },
@@ -594,11 +591,8 @@ class CompanySettingsPage extends React.Component {
       bankAccount,
       boleto,
       companyInfo: {
-        address,
         apiKeys,
         apiVersion,
-        general,
-        managingPartner,
         team,
       },
       createUserStatus,
@@ -609,7 +603,6 @@ class CompanySettingsPage extends React.Component {
     return (
       <CompanySettings
         antifraud={antifraud}
-        address={address}
         apiKeys={apiKeys}
         apiVersion={apiVersion}
         bankAccounts={bankAccount.accounts}
@@ -629,11 +622,9 @@ class CompanySettingsPage extends React.Component {
         deleteUserStatus={deleteUserStatus}
         environment={environment}
         fees={fees}
-        general={general}
         handleCreateUser={this.handleCreateUser}
         handleDeleteUser={this.handleDeleteUser}
         isMDRzao={anticipationType === 'compulsory'}
-        managingPartner={managingPartner}
         onBankAccountCancel={this.handleAccountCancel}
         onBankAccountChange={this.handleAccountChange}
         onBankAccountCreate={this.handleAccountCreate}
