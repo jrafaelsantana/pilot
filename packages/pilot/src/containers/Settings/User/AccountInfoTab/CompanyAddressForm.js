@@ -41,7 +41,7 @@ const CompanyGeneralForm = ({
           <Col palm={12} tablet={12} desk={4} tv={3}>
             <FormInput
               disabled
-              label={t('pages.settings.user.profile_info.address.form.street')}
+              label={t('pages.settings.user.account_info.address.form.street')}
               name="street"
               type="text"
             />
@@ -49,7 +49,7 @@ const CompanyGeneralForm = ({
           <Col palm={12} tablet={12} desk={2} tv={2}>
             <FormInput
               disabled
-              label={t('pages.settings.user.profile_info.address.form.street_number')}
+              label={t('pages.settings.user.account_info.address.form.street_number')}
               name="streetNumber"
               type="text"
             />
@@ -57,7 +57,7 @@ const CompanyGeneralForm = ({
           <Col palm={12} tablet={12} desk={3} tv={2}>
             <FormInput
               disabled
-              label={t('pages.settings.user.profile_info.address.form.complementary')}
+              label={t('pages.settings.user.account_info.address.form.complementary')}
               name="complementary"
               type="text"
             />
@@ -65,7 +65,7 @@ const CompanyGeneralForm = ({
           <Col palm={12} tablet={12} desk={3} tv={3}>
             <FormInput
               disabled
-              label={t('pages.settings.user.profile_info.address.form.neighborhood')}
+              label={t('pages.settings.user.account_info.address.form.neighborhood')}
               name="neighborhood"
               type="text"
             />
@@ -75,7 +75,7 @@ const CompanyGeneralForm = ({
           <Col palm={12} tablet={12} desk={3} tv={2}>
             <FormInput
               disabled
-              label={t('pages.settings.user.profile_info.address.form.city')}
+              label={t('pages.settings.user.account_info.address.form.city')}
               name="city"
               type="text"
             />
@@ -83,7 +83,7 @@ const CompanyGeneralForm = ({
           <Col palm={12} tablet={12} desk={3} tv={2}>
             <FormInput
               disabled
-              label={t('pages.settings.user.profile_info.address.form.state')}
+              label={t('pages.settings.user.account_info.address.form.state')}
               name="state"
               type="text"
             />
@@ -91,7 +91,7 @@ const CompanyGeneralForm = ({
           <Col palm={12} tablet={12} desk={3} tv={2}>
             <FormInput
               disabled
-              label={t('pages.settings.user.profile_info.address.form.zipcode')}
+              label={t('pages.settings.user.account_info.address.form.zipcode')}
               name="zipcode"
               type="text"
             />

@@ -12,7 +12,7 @@ import CompanyGeneralForm from './CompanyGeneralForm'
 
 import style from './style.css'
 
-const ProfileInfoTab = ({
+const AccountInfoTab = ({
   address,
   general,
   managingPartner,
@@ -20,21 +20,21 @@ const ProfileInfoTab = ({
 }) => (
   <div>
     <Card className={style.marginBottom}>
-      <CardTitle title={t('pages.settings.user.profile_info.general.title')} titleSize="large" />
+      <CardTitle title={t('pages.settings.user.account_info.general.title')} titleSize="large" />
       <CardContent>
         <CompanyGeneralForm t={t} general={general} />
       </CardContent>
     </Card>
 
     <Card className={style.marginBottom}>
-      <CardTitle title={t('pages.settings.user.profile_info.address.title')} titleSize="large" />
+      <CardTitle title={t('pages.settings.user.account_info.address.title')} titleSize="large" />
       <CardContent>
         <CompanyAddressForm t={t} address={address} />
       </CardContent>
     </Card>
 
     <Card>
-      <CardTitle title={t('pages.settings.user.profile_info.managing_partner.title')} titleSize="large" />
+      <CardTitle title={t('pages.settings.user.account_info.managing_partner.title')} titleSize="large" />
       <CardContent>
         <CompanyAccountManagerForm t={t} managingPartner={managingPartner} />
       </CardContent>
@@ -42,7 +42,7 @@ const ProfileInfoTab = ({
   </div>
 )
 
-ProfileInfoTab.propTypes = {
+AccountInfoTab.propTypes = {
   address: PropTypes.shape({
     city: PropTypes.string,
     complementary: PropTypes.string,
@@ -66,4 +66,4 @@ ProfileInfoTab.propTypes = {
   t: PropTypes.func.isRequired,
 }
 
-export default ProfileInfoTab
+export default AccountInfoTab

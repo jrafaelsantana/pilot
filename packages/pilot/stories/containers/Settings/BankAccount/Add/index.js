@@ -7,7 +7,7 @@ import {
   split,
 } from 'ramda'
 
-import BankAccountForm from '../../../../../src/containers/Settings/BankAccount/Add'
+import BankAccountForm from '../../../../../src/containers/Settings/User/BankingInfoTab/BankAccount/Add'
 
 const defaultErrorData = {
   account: '',

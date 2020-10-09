@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import BankAccountSelector from '../../../../../src/containers/Settings/BankAccount/Selector'
+import BankAccountSelector from '../../../../../src/containers/Settings/User/BankingInfoTab/BankAccount/Selector'
 
 class BankAccountSelectorExample extends Component {
   constructor () {

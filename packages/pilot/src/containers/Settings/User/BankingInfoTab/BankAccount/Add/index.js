@@ -15,14 +15,14 @@ import {
 
 import { map } from 'ramda'
 
-import accountCDValidation from '../../../../validation/accountCheckDigit'
-import accountTypes from '../../../../models/accountTypes'
-import agencyCDValidation from '../../../../validation/agencyCheckDigit'
-import banks from '../../../../models/banks'
-import formatCpfCnpj from '../../../../formatters/cpfCnpj'
-import numberValidation from '../../../../validation/number'
-import Property from '../../../../components/Property'
-import requiredValidation from '../../../../validation/required'
+import accountCDValidation from '../../../../../../validation/accountCheckDigit'
+import accountTypes from '../../../../../../models/accountTypes'
+import agencyCDValidation from '../../../../../../validation/agencyCheckDigit'
+import banks from '../../../../../../models/banks'
+import formatCpfCnpj from '../../../../../../formatters/cpfCnpj'
+import numberValidation from '../../../../../../validation/number'
+import Property from '../../../../../../components/Property'
+import requiredValidation from '../../../../../../validation/required'
 import style from './style.css'
 
 const optionGenerator = (t, prefix) => value => ({
@@ -54,8 +54,8 @@ const BankAccountForm = ({
   const accountTypeGenerator = optionGenerator(t, 'models.account_type')
   const accountTypeOptions = map(accountTypeGenerator, accountTypes)
 
-  const isRequired = requiredValidation(t('pages.settings.company.card.register.bank.required'))
-  const isNumber = numberValidation(t('pages.settings.company.card.register.bank.number'))
+  const isRequired = requiredValidation(t('pages.settings.user.banking_info.required'))
+  const isNumber = numberValidation(t('pages.settings.user.banking_info.number'))
 
   return (
     <Form
@@ -79,10 +79,10 @@ const BankAccountForm = ({
         account: [isRequired, isNumber],
         accountCd: [
           isRequired,
-          accountCDValidation(t('pages.settings.company.card.register.bank.invalid_cd')),
+          accountCDValidation(t('pages.settings.user.banking_info.invalid_cd')),
         ],
         agency: [isRequired, isNumber],
-        agencyCd: agencyCDValidation(t('pages.settings.company.card.register.bank.invalid_cd')),
+        agencyCd: agencyCDValidation(t('pages.settings.user.banking_info.invalid_cd')),
         bankCode: isRequired,
         type: isRequired,
       }}
@@ -132,7 +132,6 @@ const BankAccountForm = ({
                     label={t('models.bank_account.agency')}
                     maxLength={5}
                     name="agency"
-                    size={10}
                     type="text"
                   />
                   <span className={style.separator}>-</span>
@@ -141,7 +140,6 @@ const BankAccountForm = ({
                     label={t('models.bank_account.dv')}
                     maxLength={1}
                     name="agencyCd"
-                    size={1}
                     type="text"
                   />
                 </div>
@@ -152,7 +150,6 @@ const BankAccountForm = ({
                     label={t('models.bank_account.account')}
                     maxLength={13}
                     name="account"
-                    size={13}
                     type="text"
                   />
                   <span className={style.separator}>-</span>
@@ -161,7 +158,6 @@ const BankAccountForm = ({
                     label={t('models.bank_account.dv')}
                     maxLength={2}
                     name="accountCd"
-                    size={2}
                     type="text"
                   />
                 </div>
@@ -177,13 +173,13 @@ const BankAccountForm = ({
           onClick={onCancel}
           type="reset"
         >
-          {t('pages.settings.company.card.register.bank.cancel')}
+          {t('pages.settings.user.banking_info.cancel')}
         </Button>
         <Button
           disabled={actionsDisabled}
           type="submit"
         >
-          {t('pages.settings.company.card.register.bank.confirm')}
+          {t('pages.settings.user.banking_info.confirm')}
         </Button>
       </CardActions>
     </Form>

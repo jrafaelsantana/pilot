@@ -5,12 +5,10 @@ import { withRouter } from 'react-router-dom'
 import {
   applySpec,
   compose,
-  curry,
   defaultTo,
   find,
   head,
   map,
-  merge,
   path,
   pathOr,
   pick,
@@ -82,36 +80,6 @@ const getValueFromInstructions = getPropFromInstructions('name', 'value')
 
 const getCurrentCompany = client => client.company.current()
 
-const getSelectedAccount = curry((client, id) => client
-  .recipients.find({ id })
-  .then(path(['bank_account'])))
-
-const getBankAccounts = curry((client, bankAccount) => client
-  .bankAccounts.find({
-    count: 100,
-    document_number: bankAccount.document_number,
-  }).then(accounts => ({
-    accounts,
-    selectedAccount: bankAccount,
-  })))
-
-const buildBankAccount = account => ({
-  agencia: account.agency || account.agencia,
-  agencia_dv: account.agencyCd || account.agencia_dv,
-  bank_code: account.bankCode || account.bank_code,
-  conta: account.account || account.conta,
-  conta_dv: account.accountCd || account.conta_dv,
-  document_number: account.documentNumber || account.document_number,
-  legal_name: account.legalName || account.legal_name,
-  type: account.type,
-})
-
-const updateBankAccount = ({ account, client, recipiendId }) => client
-  .recipients.update({
-    bank_account: buildBankAccount(account),
-    id: recipiendId,
-  })
-
 const boletoOptions = t => ([
   {
     name: t('pages.settings.company.boleto.options.accept'),
@@ -123,26 +91,6 @@ const boletoOptions = t => ([
   },
 ])
 
-const defaultBankAccountState = {
-  account: '',
-  accountCd: '',
-  agency: '',
-  agencyCd: '',
-  bankCode: '',
-  documentNumber: '',
-  legalName: '',
-  type: '',
-}
-
-const defaultBankAccountErrorsState = {
-  account: '',
-  accountCd: '',
-  agency: '',
-  agencyCd: '',
-  bankCode: '',
-  type: '',
-}
-
 const userIsReadOnly = propEq('permission', 'read_only')
 
 class CompanySettingsPage extends React.Component {
@@ -152,16 +100,6 @@ class CompanySettingsPage extends React.Component {
     this.state = {
       antifraud: {
         fraud_covered: false,
-      },
-      bankAccount: {
-        accounts: [],
-        actionsDisabled: true,
-        actionSelectDisabled: userIsReadOnly(props.user) || false,
-        data: defaultBankAccountState,
-        errors: defaultBankAccountErrorsState,
-        loading: false,
-        selectedAccount: {},
-        selectedView: 'selection',
       },
       boleto: {
         actionsDisabled: true,
@@ -181,7 +119,6 @@ class CompanySettingsPage extends React.Component {
         loading: false,
         success: false,
       },
-      defaultRecipientId: null,
       deleteUserStatus: {
         error: null,
         success: false,
@@ -190,10 +127,6 @@ class CompanySettingsPage extends React.Component {
     }
 
     this.getInitialState = this.getInitialState.bind(this)
-    this.handleAccountCancel = this.handleAccountCancel.bind(this)
-    this.handleAccountChange = this.handleAccountChange.bind(this)
-    this.handleAccountCreate = this.handleAccountCreate.bind(this)
-    this.handleAccountSelect = this.handleAccountSelect.bind(this)
     this.handleBoletoCancel = this.handleBoletoCancel.bind(this)
     this.handleBoletoChange = this.handleBoletoChange.bind(this)
     this.handleBoletoSubmit = this.handleBoletoSubmit.bind(this)
@@ -211,7 +144,7 @@ class CompanySettingsPage extends React.Component {
       t,
     } = this.props
 
-    const { bankAccount, boleto } = this.state
+    const { boleto } = this.state
 
     const getBoletoOptions = company => ({
       expiration: getPropFromBoleto(
@@ -231,21 +164,6 @@ class CompanySettingsPage extends React.Component {
       pick(['fraud_covered'])
     )
 
-    const getCompanyBankAccount = id => getSelectedAccount(client, id)
-      .then(getBankAccounts(client))
-      .then(({ accounts, selectedAccount }) => this.setState({
-        bankAccount: {
-          ...bankAccount,
-          accounts,
-          data: {
-            ...defaultBankAccountState,
-            documentNumber: selectedAccount.document_number,
-            legalName: selectedAccount.legal_name,
-          },
-          selectedAccount,
-        },
-      }))
-
     getCurrentCompany(client)
       .then(applySpec({
         antifraud: getAntifraudOptions,
@@ -256,7 +174,6 @@ class CompanySettingsPage extends React.Component {
       .then(({
         antifraud,
         boletoInstructions,
-        defaultRecipientId,
         type,
       }) => {
         this.setState({
@@ -266,13 +183,11 @@ class CompanySettingsPage extends React.Component {
             actionsDisabled: true,
             ...boletoInstructions,
           },
-          defaultRecipientId,
         })
 
-        return { recipientId: defaultRecipientId, type }
+        return { type }
       })
-      .then(({ recipientId, type }) => !isCompanyPaymentLink(type)
-        && getCompanyBankAccount(recipientId))
+      .then(({ type }) => !isCompanyPaymentLink(type))
       .catch(() => {
         redirectoToLogout()
       })
@@ -310,106 +225,6 @@ class CompanySettingsPage extends React.Component {
       .then((companyInfo) => {
         this.setState({ companyInfo })
       })
-  }
-
-  handleAccountCancel () {
-    const { bankAccount } = this.state
-
-    this.setState({
-      bankAccount: {
-        ...bankAccount,
-        actionsDisabled: true,
-        data: {
-          ...defaultBankAccountState,
-          documentNumber: bankAccount.data.documentNumber,
-          legalName: bankAccount.data.legalName,
-        },
-        errors: defaultBankAccountErrorsState,
-      },
-    })
-  }
-
-  handleAccountChange (data, errors) {
-    const { bankAccount } = this.state
-
-    this.setState({
-      bankAccount: {
-        ...bankAccount,
-        actionsDisabled: false,
-        data: merge(bankAccount.data, data),
-        errors,
-        selectedView: 'addition',
-      },
-    })
-  }
-
-  handleAccountCreate (data, errors) {
-    const { bankAccount, defaultRecipientId } = this.state
-    const { client, requestLogout: redirectoToLogout } = this.props
-    const account = merge(bankAccount.data, data)
-
-    if (!errors) {
-      this.setState({
-        bankAccount: {
-          ...bankAccount,
-          actionsDisabled: true,
-        },
-      }, () => updateBankAccount({
-        account,
-        client,
-        recipiendId: defaultRecipientId,
-      })
-        .then(prop('bank_account'))
-        .then(getBankAccounts(client))
-        .then(({ accounts, selectedAccount }) => this.setState({
-          bankAccount: {
-            ...bankAccount,
-            accounts,
-            actionsDisabled: true,
-            data: {
-              ...defaultBankAccountState,
-              documentNumber: account.documentNumber,
-              legalName: account.legalName,
-            },
-            errors: defaultBankAccountErrorsState,
-            selectedAccount,
-            selectedView: 'selection',
-          },
-        }))
-        .catch(redirectoToLogout))
-    } else {
-      this.setState({
-        bankAccount: {
-          ...bankAccount,
-          errors,
-        },
-      })
-    }
-  }
-
-  handleAccountSelect (accountId) {
-    const { bankAccount, defaultRecipientId } = this.state
-    const { client, requestLogout: redirectoToLogout } = this.props
-    const account = find(propEq('id', accountId), bankAccount.accounts)
-
-    this.setState({
-      bankAccount: {
-        ...bankAccount,
-        actionSelectDisabled: true,
-      },
-    }, () => updateBankAccount({
-      account,
-      client,
-      recipiendId: defaultRecipientId,
-    })
-      .then(({ bank_account: selectedAccount }) => this.setState({
-        bankAccount: {
-          ...bankAccount,
-          actionSelectDisabled: false,
-          selectedAccount,
-        },
-      }))
-      .catch(redirectoToLogout))
   }
 
   handleBoletoCancel () {
@@ -588,7 +403,6 @@ class CompanySettingsPage extends React.Component {
 
     const {
       antifraud,
-      bankAccount,
       boleto,
       companyInfo: {
         apiKeys,
@@ -605,13 +419,6 @@ class CompanySettingsPage extends React.Component {
         antifraud={antifraud}
         apiKeys={apiKeys}
         apiVersion={apiVersion}
-        bankAccounts={bankAccount.accounts}
-        bankActionsDisabled={bankAccount.actionsDisabled}
-        bankAccountSelected={bankAccount.selectedAccount}
-        bankAccountChangeActionDisabled={bankAccount.actionSelectDisabled}
-        bankAccountSelectedView={bankAccount.selectedView}
-        bankData={bankAccount.data}
-        bankErrors={bankAccount.errors}
         boletoActionsDisabled={boleto.actionsDisabled || boleto.loading}
         boletoDaysToAddInExpirationDate={getPropExpiration(boleto)}
         boletoDisabled={boleto.loading}
@@ -625,10 +432,6 @@ class CompanySettingsPage extends React.Component {
         handleCreateUser={this.handleCreateUser}
         handleDeleteUser={this.handleDeleteUser}
         isMDRzao={anticipationType === 'compulsory'}
-        onBankAccountCancel={this.handleAccountCancel}
-        onBankAccountChange={this.handleAccountChange}
-        onBankAccountCreate={this.handleAccountCreate}
-        onBankAccountSelect={this.handleAccountSelect}
         onBoletoSettingsCancel={this.handleBoletoCancel}
         onBoletoSettingsChange={this.handleBoletoChange}
         onBoletoSettingsSubmit={this.handleBoletoSubmit}

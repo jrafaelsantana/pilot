@@ -41,7 +41,7 @@ const CompanyGeneralForm = ({
           <Col palm={12} tablet={12} desk={4} tv={4}>
             <FormInput
               disabled
-              label={t('pages.settings.user.profile_info.managing_partner.form.name')}
+              label={t('pages.settings.user.account_info.managing_partner.form.name')}
               name="name"
               type="text"
             />
@@ -49,7 +49,7 @@ const CompanyGeneralForm = ({
           <Col palm={12} tablet={12} desk={2} tv={2}>
             <FormInput
               disabled
-              label={t('pages.settings.user.profile_info.managing_partner.form.cpf')}
+              label={t('pages.settings.user.account_info.managing_partner.form.cpf')}
               name="cpf"
               type="text"
             />
@@ -57,7 +57,7 @@ const CompanyGeneralForm = ({
           <Col palm={12} tablet={12} desk={2} tv={2}>
             <FormInput
               disabled
-              label={t('pages.settings.user.profile_info.managing_partner.form.phone')}
+              label={t('pages.settings.user.account_info.managing_partner.form.phone')}
               name="phone_number"
               type="text"
             />

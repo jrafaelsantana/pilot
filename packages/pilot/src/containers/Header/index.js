@@ -82,7 +82,7 @@ const HeaderContainer = ({
 
   const myAccountItems = [
     { action: () => sendTo({ pathname: '/account', state: { tab: 'accountInfo' } }), title: t('header.account.account_info') },
-    // { action: () => null, title: t('header.account.bank_title') },
+    { action: () => sendTo({ pathname: '/account', state: { tab: 'bankingInfo' } }), title: t('header.account.banking_info') },
     // { action: () => null, title: t('header.account.manage_team') },
     { action: () => sendTo({ pathname: '/account', state: { tab: 'password' } }), title: t('header.account.change_password') },
   ]

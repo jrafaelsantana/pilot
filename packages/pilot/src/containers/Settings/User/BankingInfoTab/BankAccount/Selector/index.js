@@ -9,40 +9,40 @@ import {
 
 import IconCheck from 'emblematic-icons/svg/Check32.svg'
 
-import agencyAccountFormetter from '../../../../formatters/agencyAccount'
-import accountTypeFormatter from '../../../../formatters/accountType'
+import agencyAccountFormetter from '../../../../../../formatters/agencyAccount'
+import accountTypeFormatter from '../../../../../../formatters/accountType'
 
 const getColumns = (selectedAccountId, onSelect, t, disabled) => [
   {
     accessor: ['legal_name'],
     orderable: false,
-    title: t('pages.settings.company.card.register.bank.account_name'),
+    title: t('pages.settings.user.banking_info.account_name'),
   },
   {
     accessor: ['bank_code'],
     orderable: false,
     renderer: item => t(`models.bank_code.${item.bank_code}`),
-    title: t('pages.settings.company.card.register.bank.name'),
+    title: t('pages.settings.user.banking_info.name'),
   },
   {
     accessor: ['agencia'],
     align: 'end',
     orderable: false,
     renderer: item => agencyAccountFormetter(item.agencia, item.agencia_dv),
-    title: t('pages.settings.company.card.register.bank.agency'),
+    title: t('pages.settings.user.banking_info.agency'),
   },
   {
     accessor: ['conta'],
     align: 'end',
     orderable: false,
     renderer: item => agencyAccountFormetter(item.conta, item.conta_dv),
-    title: t('pages.settings.company.card.register.bank.account'),
+    title: t('pages.settings.user.banking_info.account'),
   },
   {
     accessor: ['type'],
     orderable: false,
     renderer: item => accountTypeFormatter(t, item.type),
-    title: t('pages.settings.company.card.register.bank.account_type'),
+    title: t('pages.settings.user.banking_info.account_type'),
   },
   {
     align: 'center',
@@ -65,7 +65,7 @@ const getColumns = (selectedAccountId, onSelect, t, disabled) => [
           onClick={() => onSelect(item.id)}
           size="tiny"
         >
-          {t('pages.settings.company.card.register.bank.select')}
+          {t('pages.settings.user.banking_info.select')}
         </Button>
       )
     },
