@@ -158,7 +158,7 @@
   "header": {
     "account": {
       "account_info": "Dados cadastrais",
-      "bank_title": "Dados bancários",
+      "banking_info": "Dados bancários",
       "change_password": "Alterar senha",
       "general": "Geral",
       "logout": "Encerrar sessão",
@@ -1321,10 +1321,11 @@
       "user": {
         "menu": "Minha conta",
         "tabs": {
-          "profile_info": "Dados cadastrais",
+          "account_info": "Dados cadastrais",
+          "banking_info": "Dados bancários",
           "change_password": "Alterar senha"
         },
-        "profile_info": {
+        "account_info": {
           "general": {
             "title": "Informações da empresa",
             "form": {
@@ -1354,7 +1355,23 @@
               "phone": "Telefone"
             }
           }
-        },        
+        },
+        "banking_info": {
+          "title": "Informações da conta",
+          "select_account": "Selecionar uma conta",
+          "add": "Adicionar uma conta",
+          "required": "Obrigatório",
+          "number": "Deve ser um número",
+          "invalid_cd": "Digito verificador inválido",
+          "cancel": "Cancelar",
+          "confirm": "Salvar Alterações",
+          "account_name": "Nome da conta",
+          "name": "Banco",
+          "agency": "Agência",
+          "account": "Conta",
+          "account_type": "Tipo de conta",
+          "select": "Selecionar"
+        },
         "card": {
           "header": "Dados pessoais",
           "access": {
@@ -1492,37 +1509,15 @@
             }
           },
           "register": {
-            "bank_title": "Dados bancários",
             "card_title": "As alterações dos dados da empresa estão sujeitas à análise. Se tiver alguma dúvida, entre em contato conosco.",
             "card_company": "Dados da empresa",
             "account_manager": "Contato responsável",
-            "title": {
-              "documents": "Documentos",
-              "bank": "Informações da conta",
-              "select": "Selecionar uma conta",
-              "add": "Adicionar uma conta"
-            },
             "subtitle": {
               "company": "Verifique ou edite informações da sua empresa.",
               "address": "Verifique ou edite informações do endereço da sua empresa.",
               "documents": "Visualize os documentos vinculados à sua conta.",
               "managing_partner": "Verifique ou edite informações do sócio administrador.",
               "bank": "Verifique ou adicione novas contas que você utilizará para realizar os saques da sua conta Pagar.me."
-            },
-            "bank": {
-              "account_name": "Nome da conta",
-              "name": "Banco",
-              "agency": "Agência",
-              "account": "Conta",
-              "account_type": "Tipo de conta",
-              "main_account": "Conta principal",
-              "select": "Selecionar",
-              "required": "Obrigatório",
-              "number": "Deve ser um número",
-              "bank_code": "Banco",
-              "invalid_cd": "Digito verificador inválido",
-              "cancel": "Cancelar",
-              "confirm": "Salvar Alterações"
             }
           }
         }

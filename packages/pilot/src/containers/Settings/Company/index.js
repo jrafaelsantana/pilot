@@ -9,7 +9,6 @@ import {
 
 import GeneralInfoTab from './GeneralInfoTab'
 import ProductInfoTab from './ProductInfoTab'
-import RegisterInfoTab from './RegisterInfoTab'
 import TeamInfoTab from './TeamInfoTab'
 
 import isPaymentLink from '../../../validation/isPaymentLink'
@@ -31,13 +30,6 @@ class CompanySettings extends Component {
       antifraud,
       apiKeys,
       apiVersion,
-      bankAccountChangeActionDisabled,
-      bankAccountSelected,
-      bankAccountSelectedView,
-      bankAccounts,
-      bankActionsDisabled,
-      bankData,
-      bankErrors,
       boletoActionsDisabled,
       boletoDaysToAddInExpirationDate,
       boletoDisabled,
@@ -51,10 +43,6 @@ class CompanySettings extends Component {
       handleCreateUser,
       handleDeleteUser,
       isMDRzao,
-      onBankAccountCancel,
-      onBankAccountChange,
-      onBankAccountCreate,
-      onBankAccountSelect,
       onBoletoSettingsCancel,
       onBoletoSettingsChange,
       onBoletoSettingsSubmit,
@@ -81,7 +69,6 @@ class CompanySettings extends Component {
             <TabItem text={t('pages.settings.company.tab.general')} />
             <TabItem text={t('pages.settings.company.tab.products')} />
             <TabItem text={t('pages.settings.company.tab.team')} />
-            <TabItem text={t('pages.settings.company.tab.register')} />
           </TabBar>
         </CardContent>
         {selectedIndex === 0
@@ -130,41 +117,9 @@ class CompanySettings extends Component {
             />
           )
         }
-        {selectedIndex === 3
-          && (
-            <RegisterInfoTab
-              bankAccounts={bankAccounts}
-              bankAccountActionsDisabled={bankActionsDisabled}
-              bankAccountData={bankData}
-              bankAccountErrors={bankErrors}
-              bankAccountSelected={bankAccountSelected}
-              bankAccountChangeActionDisabled={bankAccountChangeActionDisabled}
-              bankAccountSelectedView={bankAccountSelectedView}
-              isPaymentLink={isPaymentLink(company)}
-              onBankAccountCancel={onBankAccountCancel}
-              onBankAccountChange={onBankAccountChange}
-              onBankAccountCreate={onBankAccountCreate}
-              onBankAccountSelect={onBankAccountSelect}
-              t={t}
-            />
-          )
-        }
       </Card>
     )
   }
-}
-
-const bankAccountShape = {
-  agencia: PropTypes.string,
-  agencia_dv: PropTypes.string,
-  bank_code: PropTypes.string,
-  conta: PropTypes.string,
-  conta_dv: PropTypes.string,
-  document_number: PropTypes.string,
-  document_type: PropTypes.string,
-  id: PropTypes.number,
-  legal_name: PropTypes.string,
-  type: PropTypes.string,
 }
 
 CompanySettings.propTypes = {
@@ -179,34 +134,6 @@ CompanySettings.propTypes = {
     title: PropTypes.string.isRequired,
   }),
   apiVersion: PropTypes.string,
-  /* eslint-disable max-len, react/sort-prop-types */
-  bankAccountChangeActionDisabled: PropTypes.bool.isRequired,
-  bankAccounts: PropTypes.arrayOf(PropTypes.shape(bankAccountShape).isRequired).isRequired,
-  bankAccountSelected: PropTypes.shape(bankAccountShape).isRequired,
-  bankAccountSelectedView: PropTypes.oneOf([
-    'addition',
-    'selection',
-  ]).isRequired,
-  bankActionsDisabled: PropTypes.bool.isRequired,
-  /* eslint-enable max-len, react/sort-prop-types */
-  bankData: PropTypes.shape({
-    account: PropTypes.string,
-    accountCd: PropTypes.string,
-    agency: PropTypes.string,
-    agencyCd: PropTypes.string,
-    bankCode: PropTypes.string,
-    documentNumber: PropTypes.string.isRequired,
-    legalName: PropTypes.string.isRequired,
-    type: PropTypes.string,
-  }),
-  bankErrors: PropTypes.shape({
-    account: PropTypes.string,
-    accountCd: PropTypes.string,
-    agency: PropTypes.string,
-    agencyCd: PropTypes.string,
-    bankCode: PropTypes.string,
-    type: PropTypes.string,
-  }),
   boletoActionsDisabled: PropTypes.bool.isRequired,
   boletoDaysToAddInExpirationDate: PropTypes.string,
   boletoDisabled: PropTypes.bool.isRequired,
@@ -246,10 +173,6 @@ CompanySettings.propTypes = {
   handleCreateUser: PropTypes.func.isRequired,
   handleDeleteUser: PropTypes.func.isRequired,
   isMDRzao: PropTypes.bool.isRequired,
-  onBankAccountCancel: PropTypes.func.isRequired,
-  onBankAccountChange: PropTypes.func.isRequired,
-  onBankAccountCreate: PropTypes.func.isRequired,
-  onBankAccountSelect: PropTypes.func.isRequired,
   onBoletoSettingsCancel: PropTypes.func.isRequired,
   onBoletoSettingsChange: PropTypes.func.isRequired,
   onBoletoSettingsSubmit: PropTypes.func.isRequired,
@@ -272,15 +195,6 @@ CompanySettings.propTypes = {
 CompanySettings.defaultProps = {
   apiKeys: null,
   apiVersion: null,
-  bankData: {
-    account: '',
-    accountCd: '',
-    agency: '',
-    agencyCd: '',
-    bankCode: '',
-    type: '',
-  },
-  bankErrors: null,
   boletoDaysToAddInExpirationDate: null,
   boletoInstructions: null,
   company: null,

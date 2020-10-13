@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  CardContent,
+  Card,
   CardTitle,
 } from 'former-kit'
-import CompanyBankAccount from '../../BankAccount'
+import CompanyBankAccount from './BankAccount'
 
 const RegisterInfoTab = ({
   bankAccountActionsDisabled,
@@ -21,31 +21,27 @@ const RegisterInfoTab = ({
   onBankAccountSelect,
   t,
 }) => (
-  <Fragment>
-    {!isPaymentLink && (
-      <Fragment>
-        <CardTitle
-          title={t('pages.settings.company.card.register.bank_title')}
-        />
-        <CardContent>
-          <CompanyBankAccount
-            accounts={bankAccounts}
-            changeActionDisabled={bankAccountChangeActionDisabled}
-            data={bankAccountData}
-            disabled={bankAccountActionsDisabled}
-            errors={bankAccountErrors}
-            onAccountSelect={onBankAccountSelect}
-            onCancel={onBankAccountCancel}
-            onChange={onBankAccountChange}
-            onSubmit={onBankAccountCreate}
-            selectedAccount={bankAccountSelected}
-            selectedView={bankAccountSelectedView}
-            t={t}
-          />
-        </CardContent>
-      </Fragment>
-    )}
-  </Fragment>
+  !isPaymentLink && (
+    <Card>
+      <CardTitle
+        title={t('pages.settings.user.banking_info.title')}
+      />
+      <CompanyBankAccount
+        accounts={bankAccounts}
+        changeActionDisabled={bankAccountChangeActionDisabled}
+        data={bankAccountData}
+        disabled={bankAccountActionsDisabled}
+        errors={bankAccountErrors}
+        onAccountSelect={onBankAccountSelect}
+        onCancel={onBankAccountCancel}
+        onChange={onBankAccountChange}
+        onSubmit={onBankAccountCreate}
+        selectedAccount={bankAccountSelected}
+        selectedView={bankAccountSelectedView}
+        t={t}
+      />
+    </Card>
+  )
 )
 
 const bankAccountShape = {

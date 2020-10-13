@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { merge } from 'ramda'
 import { action } from '@storybook/addon-actions'
 
-import BankAccount from '../../../../src/containers/Settings/BankAccount'
+import BankAccount from '../../../../src/containers/Settings/User/BankingInfoTab/BankAccount'
 
 const selectedAccountMock = {
   agencia: '3783',
