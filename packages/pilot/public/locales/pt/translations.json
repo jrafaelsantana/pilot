@@ -162,7 +162,7 @@
       "change_password": "Alterar senha",
       "general": "Geral",
       "logout": "Encerrar sessão",
-      "manage_team": "Gerenciamento de equipe",
+      "team_info": "Gerenciamento de equipe",
       "settings": "Minha conta"
     },
     "environment": {
@@ -1323,14 +1323,15 @@
         "tabs": {
           "account_info": "Dados cadastrais",
           "banking_info": "Dados bancários",
+          "team_info": "Gerenciamento de equipe",
           "change_password": "Alterar senha"
         },
         "account_info": {
           "general": {
             "title": "Informações da empresa",
             "form": {
-              "name": "Razão social",
-              "full_name": "Nome fantasia",
+              "name": "Nome fantasia",
+              "full_name": "Razão social",
               "cnpj": "CNPJ",
               "site_url": "URL do site"
             }
@@ -1371,6 +1372,15 @@
           "account": "Conta",
           "account_type": "Tipo de conta",
           "select": "Selecionar"
+        },
+        "team_info": {
+          "title": "Gerenciamento de equipe",
+          "form": {
+            "success": "E-mail de convite enviado para {{ email }}",
+            "access_level": "Nível de acesso",
+            "identification": "Identificação"
+          },
+          "delete_user_success": "Usuario deletado com sucesso."
         },
         "card": {
           "header": "Dados pessoais",
@@ -1484,28 +1494,6 @@
             },
             "boleto": {
               "title": "Boletos"
-            }
-          },
-          "team": {
-            "title": {
-              "management": "Gerenciamento de equipe"
-            },
-            "subtitle": {
-              "management": "Gerencie os usuários com acesso à sua conta Pagar.me."
-            },
-            "table": {
-              "user": "{{count}} Usuário",
-              "user_plural": "{{count}} Usuários",
-              "add_user": "Adicionar usuário"
-            },
-            "modal": {
-              "title": "Adicionar usuário",
-              "success": "E-mail de convite enviado para {{ email }}",
-              "access_level": "Nível de acesso",
-              "identification": "Identificação"
-            },
-            "delete_user": {
-              "success": "Usuario deletado com sucesso."
             }
           },
           "register": {

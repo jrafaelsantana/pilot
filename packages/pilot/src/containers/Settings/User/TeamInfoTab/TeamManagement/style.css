@@ -4,3 +4,12 @@
   color: var(--color-squanchy-gray-400);
   font-size: 14px;
 }
+
+.formContainer {
+  display: flex;
+}
+
+.formItem {
+  width: 327px;
+  margin-right: 26px;
+}

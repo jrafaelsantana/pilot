@@ -114,15 +114,6 @@ class CompanySettingsPage extends React.Component {
         pricing: [],
         team: [],
       },
-      createUserStatus: {
-        error: null,
-        loading: false,
-        success: false,
-      },
-      deleteUserStatus: {
-        error: null,
-        success: false,
-      },
       versions: [],
     }
 
@@ -130,10 +121,7 @@ class CompanySettingsPage extends React.Component {
     this.handleBoletoCancel = this.handleBoletoCancel.bind(this)
     this.handleBoletoChange = this.handleBoletoChange.bind(this)
     this.handleBoletoSubmit = this.handleBoletoSubmit.bind(this)
-    this.handleCreateUser = this.handleCreateUser.bind(this)
-    this.handleDeleteUser = this.handleDeleteUser.bind(this)
     this.requestData = this.requestData.bind(this)
-    this.resetCreateUserState = this.resetCreateUserState.bind(this)
     this.handleVersionChange = this.handleVersionChange.bind(this)
   }
 
@@ -311,39 +299,6 @@ class CompanySettingsPage extends React.Component {
     }
   }
 
-  handleCreateUser (user) {
-    const { client } = this.props
-
-    const handleSuccess = () => this.setState({
-      createUserStatus: {
-        error: null,
-        loading: false,
-        success: true,
-      },
-    })
-
-    const handleFailure = (response) => {
-      this.setState({
-        createUserStatus: {
-          error: formatErrors(response),
-          loading: false,
-          success: false,
-        },
-      })
-    }
-
-    this.setState({
-      createUserStatus: {
-        error: null,
-        loading: true,
-        success: false,
-      },
-    }, () => client.invites
-      .create(user)
-      .then(handleSuccess)
-      .catch(handleFailure))
-  }
-
   handleVersionChange (version) {
     const { client } = this.props
     const { companyInfo } = this.state
@@ -357,39 +312,6 @@ class CompanySettingsPage extends React.Component {
 
     client.company.update({ api_version: version })
       .then(handleSuccess)
-  }
-
-  resetCreateUserState () {
-    this.setState({
-      createUserStatus: {
-        error: null,
-        loading: false,
-        success: false,
-      },
-    })
-  }
-
-  handleDeleteUser (id) {
-    const { client } = this.props
-
-    client.user.destroy({ id })
-      .then(() => {
-        this.requestData()
-        this.setState({
-          deleteUserStatus: {
-            error: null,
-            success: true,
-          },
-        })
-      })
-      .catch((response) => {
-        this.setState({
-          deleteUserStatus: {
-            error: formatErrors(response),
-            success: false,
-          },
-        })
-      })
   }
 
   render () {
@@ -407,10 +329,7 @@ class CompanySettingsPage extends React.Component {
       companyInfo: {
         apiKeys,
         apiVersion,
-        team,
       },
-      createUserStatus,
-      deleteUserStatus,
       versions,
     } = this.state
 
@@ -425,20 +344,14 @@ class CompanySettingsPage extends React.Component {
         boletoInstructions={boleto.instructions}
         boletoInstructionsOptions={boletoOptions(t)}
         company={company}
-        createUserStatus={createUserStatus}
-        deleteUserStatus={deleteUserStatus}
         environment={environment}
         fees={fees}
-        handleCreateUser={this.handleCreateUser}
-        handleDeleteUser={this.handleDeleteUser}
         isMDRzao={anticipationType === 'compulsory'}
         onBoletoSettingsCancel={this.handleBoletoCancel}
         onBoletoSettingsChange={this.handleBoletoChange}
         onBoletoSettingsSubmit={this.handleBoletoSubmit}
         onVersionChange={this.handleVersionChange}
-        resetCreateUserState={this.resetCreateUserState}
         t={t}
-        team={team}
         versions={versions}
         userIsReadOnly={userIsReadOnly(user)}
       />

@@ -10,16 +10,20 @@ import {
 
 import AccountInfoTab from './AccountInfoTab'
 import BankingInfoTab from './BankingInfoTab'
+import TeamInfoTab from './TeamInfoTab'
 import PasswordRedefinitionForm from './PasswordRedefinitionForm'
 import isPaymentLink from '../../../validation/isPaymentLink'
 
 import style from './style.css'
 
+/* eslint-disable sort-keys */
 const tabIndexByName = {
   accountInfo: 0,
   bankingInfo: 1,
-  password: 2,
+  teamInfo: 2,
+  password: 3,
 }
+/* eslint-enable sort-keys */
 
 const UserSettings = ({
   address,
@@ -31,7 +35,11 @@ const UserSettings = ({
   bankData,
   bankErrors,
   company,
+  createUserStatus,
+  deleteUserStatus,
   general,
+  handleCreateUser,
+  handleDeleteUser,
   handlePasswordFormSubmit,
   managingPartner,
   onBankAccountCancel,
@@ -40,6 +48,7 @@ const UserSettings = ({
   onBankAccountSelect,
   passwordFormStatus,
   t,
+  team,
 }) => {
   const [tabIndex, setTabIndex] = useState(0)
   const history = useHistory()
@@ -65,6 +74,7 @@ const UserSettings = ({
       >
         <TabItem text={t('pages.settings.user.tabs.account_info')} />
         <TabItem text={t('pages.settings.user.tabs.banking_info')} />
+        <TabItem text={t('pages.settings.user.tabs.team_info')} />
         <TabItem text={t('pages.settings.user.tabs.change_password')} />
       </TabBar>
 
@@ -97,6 +107,20 @@ const UserSettings = ({
               onBankAccountCreate={onBankAccountCreate}
               onBankAccountSelect={onBankAccountSelect}
               t={t}
+            />
+          )
+        }
+        {
+          tabIndex === tabIndexByName.teamInfo
+          && (
+            <TeamInfoTab
+              company={company}
+              createUserStatus={createUserStatus}
+              deleteUserStatus={deleteUserStatus}
+              handleCreateUser={handleCreateUser}
+              handleDeleteUser={handleDeleteUser}
+              t={t}
+              team={team}
             />
           )
         }
@@ -176,12 +200,24 @@ UserSettings.propTypes = {
   company: PropTypes.shape({
     type: PropTypes.string,
   }),
+  createUserStatus: PropTypes.shape({
+    error: PropTypes.string,
+    loading: PropTypes.bool,
+    success: PropTypes.bool,
+  }).isRequired,
+  deleteUserStatus: PropTypes.shape({
+    error: PropTypes.string,
+    loading: PropTypes.bool,
+    success: PropTypes.bool,
+  }).isRequired,
   general: PropTypes.shape({
     cnpj: PropTypes.string,
     fullName: PropTypes.string,
     name: PropTypes.string,
     siteUrl: PropTypes.string,
   }).isRequired,
+  handleCreateUser: PropTypes.func.isRequired,
+  handleDeleteUser: PropTypes.func.isRequired,
   handlePasswordFormSubmit: PropTypes.func.isRequired,
   managingPartner: PropTypes.shape({
     cpf: PropTypes.string,
@@ -197,6 +233,12 @@ UserSettings.propTypes = {
     success: PropTypes.bool,
   }),
   t: PropTypes.func,
+  team: PropTypes.arrayOf(PropTypes.shape({
+    date_created: PropTypes.string,
+    email: PropTypes.string,
+    name: PropTypes.string,
+    role: PropTypes.string,
+  })).isRequired,
 }
 
 UserSettings.defaultProps = {
