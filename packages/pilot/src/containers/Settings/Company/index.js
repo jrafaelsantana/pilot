@@ -9,7 +9,6 @@ import {
 
 import GeneralInfoTab from './GeneralInfoTab'
 import ProductInfoTab from './ProductInfoTab'
-import TeamInfoTab from './TeamInfoTab'
 
 import isPaymentLink from '../../../validation/isPaymentLink'
 import isNilOrEmpty from '../../../validation/isNilOrEmpty'
@@ -36,20 +35,14 @@ class CompanySettings extends Component {
       boletoInstructions,
       boletoInstructionsOptions,
       company,
-      createUserStatus,
-      deleteUserStatus,
       environment,
       fees,
-      handleCreateUser,
-      handleDeleteUser,
       isMDRzao,
       onBoletoSettingsCancel,
       onBoletoSettingsChange,
       onBoletoSettingsSubmit,
       onVersionChange,
-      resetCreateUserState,
       t,
-      team,
       userIsReadOnly,
       versions,
     } = this.props
@@ -68,7 +61,6 @@ class CompanySettings extends Component {
           >
             <TabItem text={t('pages.settings.company.tab.general')} />
             <TabItem text={t('pages.settings.company.tab.products')} />
-            <TabItem text={t('pages.settings.company.tab.team')} />
           </TabBar>
         </CardContent>
         {selectedIndex === 0
@@ -100,20 +92,6 @@ class CompanySettings extends Component {
               boletoInstructions={boletoInstructions}
               boletoInstructionsOptions={boletoInstructionsOptions}
               t={t}
-            />
-          )
-        }
-        {selectedIndex === 2
-          && (
-            <TeamInfoTab
-              company={company}
-              createUserStatus={createUserStatus}
-              deleteUserStatus={deleteUserStatus}
-              handleCreateUser={handleCreateUser}
-              handleDeleteUser={handleDeleteUser}
-              resetCreateUserState={resetCreateUserState}
-              t={t}
-              team={team}
             />
           )
         }
@@ -170,21 +148,12 @@ CompanySettings.propTypes = {
     })),
     transfer: PropTypes.number,
   }).isRequired,
-  handleCreateUser: PropTypes.func.isRequired,
-  handleDeleteUser: PropTypes.func.isRequired,
   isMDRzao: PropTypes.bool.isRequired,
   onBoletoSettingsCancel: PropTypes.func.isRequired,
   onBoletoSettingsChange: PropTypes.func.isRequired,
   onBoletoSettingsSubmit: PropTypes.func.isRequired,
   onVersionChange: PropTypes.func.isRequired,
-  resetCreateUserState: PropTypes.func.isRequired,
   t: PropTypes.func,
-  team: PropTypes.arrayOf(PropTypes.shape({
-    date_created: PropTypes.string,
-    email: PropTypes.string,
-    name: PropTypes.string,
-    role: PropTypes.string,
-  })).isRequired,
   userIsReadOnly: PropTypes.bool.isRequired,
   versions: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,

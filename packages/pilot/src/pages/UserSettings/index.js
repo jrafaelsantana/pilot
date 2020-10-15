@@ -55,6 +55,12 @@ const buildBankAccount = account => ({
   type: account.type,
 })
 
+const formatErrors = pipe(
+  pathOr([], ['response', 'errors']),
+  map(error => error.message),
+  head
+)
+
 const getBankAccounts = curry((client, bankAccount) => client
   .bankAccounts.find({
     count: 100,
@@ -112,8 +118,18 @@ class UserSettingsPage extends React.Component {
         address: {},
         general: {},
         managingPartner: {},
+        team: [],
+      },
+      createUserStatus: {
+        error: null,
+        loading: false,
+        success: false,
       },
       defaultRecipientId: null,
+      deleteUserStatus: {
+        error: null,
+        success: false,
+      },
       passwordFormStatus: {
         error: null,
         success: false,
@@ -124,6 +140,8 @@ class UserSettingsPage extends React.Component {
     this.handleAccountChange = this.handleAccountChange.bind(this)
     this.handleAccountCreate = this.handleAccountCreate.bind(this)
     this.handleAccountSelect = this.handleAccountSelect.bind(this)
+    this.handleCreateUser = this.handleCreateUser.bind(this)
+    this.handleDeleteUser = this.handleDeleteUser.bind(this)
     this.handleRedefinePassword = this.handleRedefinePassword.bind(this)
   }
 
@@ -286,6 +304,62 @@ class UserSettingsPage extends React.Component {
       .catch(redirectoToLogout))
   }
 
+  handleCreateUser (user) {
+    const { client } = this.props
+
+    const handleSuccess = () => this.setState({
+      createUserStatus: {
+        error: null,
+        loading: false,
+        success: true,
+      },
+    })
+
+    const handleFailure = (response) => {
+      this.setState({
+        createUserStatus: {
+          error: formatErrors(response),
+          loading: false,
+          success: false,
+        },
+      })
+    }
+
+    this.setState({
+      createUserStatus: {
+        error: null,
+        loading: true,
+        success: false,
+      },
+    }, () => client.invites
+      .create(user)
+      .then(handleSuccess)
+      .catch(handleFailure))
+  }
+
+  handleDeleteUser (id) {
+    const { client } = this.props
+
+    client.user.destroy({ id })
+      .then(() => {
+        this.requestData()
+        this.setState({
+          deleteUserStatus: {
+            error: null,
+            success: true,
+          },
+        })
+      })
+      .catch((response) => {
+        this.setState({
+          deleteUserStatus: {
+            error: formatErrors(response),
+            success: false,
+          },
+        })
+      })
+  }
+
   /* eslint-disable-next-line camelcase */
   handleRedefinePassword ({ current_password, new_password }) {
     const {
@@ -306,12 +380,6 @@ class UserSettingsPage extends React.Component {
         },
       }))
       .catch((response) => {
-        const formatErrors = pipe(
-          pathOr([], ['response', 'errors']),
-          map(error => error.message),
-          head
-        )
-
         this.setState({
           passwordFormStatus: {
             error: formatErrors(response),
@@ -333,7 +401,10 @@ class UserSettingsPage extends React.Component {
         address,
         general,
         managingPartner,
+        team,
       },
+      createUserStatus,
+      deleteUserStatus,
       passwordFormStatus,
     } = this.state
 
@@ -348,15 +419,20 @@ class UserSettingsPage extends React.Component {
         bankData={bankAccount.data}
         bankErrors={bankAccount.errors}
         company={company}
+        createUserStatus={createUserStatus}
+        deleteUserStatus={deleteUserStatus}
         general={general}
         managingPartner={managingPartner}
         onBankAccountCancel={this.handleAccountCancel}
         onBankAccountChange={this.handleAccountChange}
         onBankAccountCreate={this.handleAccountCreate}
         onBankAccountSelect={this.handleAccountSelect}
+        handleCreateUser={this.handleCreateUser}
+        handleDeleteUser={this.handleDeleteUser}
         handlePasswordFormSubmit={this.handleRedefinePassword}
         passwordFormStatus={passwordFormStatus}
         t={t}
+        team={team}
       />
     )
   }
