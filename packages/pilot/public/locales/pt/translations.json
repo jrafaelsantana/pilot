@@ -1436,7 +1436,7 @@
         "menu": "Configurações",
         "tab": {
           "general": "Geral",
-          "products": "Produtos",
+          "boleto": "Boleto",
           "team": "Equipe",
           "personalization": "Personalização",
           "register": "Cadastro"
@@ -1493,7 +1493,7 @@
               "subscriptions": "Configurações globais de suas assinaturas recorrentes."
             },
             "boleto": {
-              "title": "Boletos"
+              "title": "Boleto"
             }
           },
           "register": {

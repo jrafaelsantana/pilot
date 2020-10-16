@@ -1,69 +1,55 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Card,
-  CardContent,
   TabBar,
   TabItem,
 } from 'former-kit'
 
 import GeneralInfoTab from './GeneralInfoTab'
-import ProductInfoTab from './ProductInfoTab'
+import BoletoInfoTab from './BoletoInfoTab'
 
 import isPaymentLink from '../../../validation/isPaymentLink'
 import isNilOrEmpty from '../../../validation/isNilOrEmpty'
 
-class CompanySettings extends Component {
-  constructor (props) {
-    super(props)
-    this.state = { selectedIndex: 0 }
-    this.changeTab = this.changeTab.bind(this)
-  }
+import style from './style.css'
 
-  changeTab (selectedIndex) {
-    this.setState({ selectedIndex })
-  }
+const CompanySettings = ({
+  // antifraud,
+  apiKeys,
+  apiVersion,
+  boletoActionsDisabled,
+  boletoDaysToAddInExpirationDate,
+  boletoDisabled,
+  boletoInstructions,
+  boletoInstructionsOptions,
+  company,
+  environment,
+  fees,
+  isMDRzao,
+  onBoletoSettingsCancel,
+  onBoletoSettingsChange,
+  onBoletoSettingsSubmit,
+  onVersionChange,
+  t,
+  userIsReadOnly,
+  versions,
+}) => {
+  const [tabIndex, setTabIndex] = useState(0)
 
-  render () {
-    const {
-      antifraud,
-      apiKeys,
-      apiVersion,
-      boletoActionsDisabled,
-      boletoDaysToAddInExpirationDate,
-      boletoDisabled,
-      boletoInstructions,
-      boletoInstructionsOptions,
-      company,
-      environment,
-      fees,
-      isMDRzao,
-      onBoletoSettingsCancel,
-      onBoletoSettingsChange,
-      onBoletoSettingsSubmit,
-      onVersionChange,
-      t,
-      userIsReadOnly,
-      versions,
-    } = this.props
+  return !isNilOrEmpty(company) && (
+  <>
+    <TabBar
+      align="start"
+      onTabChange={setTabIndex}
+      selected={tabIndex}
+      variant="just-text"
+    >
+      <TabItem text={t('pages.settings.company.tab.general')} />
+      <TabItem text={t('pages.settings.company.tab.boleto')} />
+    </TabBar>
 
-    const {
-      selectedIndex,
-    } = this.state
-
-    return !isNilOrEmpty(company) && (
-      <Card>
-        <CardContent>
-          <TabBar
-            onTabChange={this.changeTab}
-            selected={selectedIndex}
-            variant="just-text"
-          >
-            <TabItem text={t('pages.settings.company.tab.general')} />
-            <TabItem text={t('pages.settings.company.tab.products')} />
-          </TabBar>
-        </CardContent>
-        {selectedIndex === 0
+    <div className={style.tabsContainer}>
+      {tabIndex === 0
           && (
             <GeneralInfoTab
               apiKeys={apiKeys}
@@ -79,25 +65,24 @@ class CompanySettings extends Component {
             />
           )
         }
-        {selectedIndex === 1
+      {tabIndex === 1
           && (
-            <ProductInfoTab
-              antifraud={antifraud}
-              boletoActionsDisabled={boletoActionsDisabled}
-              boletoDaysToAddInExpirationDate={boletoDaysToAddInExpirationDate}
-              boletoDisabled={boletoDisabled}
-              boletoHandleCancel={onBoletoSettingsCancel}
-              boletoHandleChange={onBoletoSettingsChange}
-              boletoHandleSubmit={onBoletoSettingsSubmit}
-              boletoInstructions={boletoInstructions}
-              boletoInstructionsOptions={boletoInstructionsOptions}
+            <BoletoInfoTab
+              actionsDisabled={boletoActionsDisabled}
+              daysToAddInExpirationDate={boletoDaysToAddInExpirationDate}
+              disabled={boletoDisabled}
+              onCancel={onBoletoSettingsCancel}
+              onChange={onBoletoSettingsChange}
+              onSubmit={onBoletoSettingsSubmit}
+              instructions={boletoInstructions}
+              instructionsOptions={boletoInstructionsOptions}
               t={t}
             />
           )
         }
-      </Card>
-    )
-  }
+    </div>
+  </>
+  )
 }
 
 CompanySettings.propTypes = {
