@@ -1328,6 +1328,7 @@
         },
         "account_info": {
           "general": {
+            "confirm": "Salvar Alterações",
             "title": "Informações da empresa",
             "form": {
               "name": "Nome fantasia",
@@ -1337,6 +1338,7 @@
             }
           },
           "address": {
+            "confirm": "Salvar Alterações",
             "title": "Endereço",
             "form": {
               "street": "Rua",
