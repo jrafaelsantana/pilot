@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { find, propEq } from 'ramda'
 import {
   Button,
+  Card,
+  CardTitle,
   CardContent,
-  CardSection,
-  CardSectionDoubleLineTitle,
   Col,
   FormDropdown,
   Grid,
@@ -17,7 +17,6 @@ import {
   Spacing,
   Flexbox,
 } from 'former-kit'
-import IconLock from 'emblematic-icons/svg/Lock32.svg'
 import style from './style.css'
 
 const Versions = ({
@@ -27,9 +26,7 @@ const Versions = ({
   options,
   t,
 }) => {
-  const [collapsed, setCollapsed] = useState(true)
   const [selected, setSelected] = useState(null)
-  const [name, setVersionName] = useState('')
   const [opened, setOpened] = useState(false)
 
   useEffect(() => {
@@ -38,7 +35,6 @@ const Versions = ({
       const apiVersion = find(getCurrentVersionFromOptions, options)
 
       setSelected(apiVersion.value)
-      setVersionName(apiVersion.name)
     }
   }, [options, current])
 
@@ -59,40 +55,24 @@ const Versions = ({
 
   return (
     <Fragment>
-      <CardSection>
-        <CardSectionDoubleLineTitle
-          collapsed={collapsed}
-          icon={<IconLock height={16} width={16} />}
-          onClick={() => setCollapsed(!collapsed)}
-          subtitle={name}
-          title={t('select_version_title')}
-        />
-        {!collapsed
-          && (
-            <CardContent>
-              <Grid>
-                <Row>
-                  <Col desk={12} tv={12} palm={12}>
-                    <p>
-                      {t('select_version_description')}
-                    </p>
-                  </Col>
-
-                  <Col desk={3} tv={4} palm={12}>
-                    <FormDropdown
-                      label={t('select_version_label')}
-                      name="api-version"
-                      onChange={openModalConfirmation}
-                      options={options}
-                      value={selected}
-                    />
-                  </Col>
-                </Row>
-              </Grid>
-            </CardContent>
-          )
-        }
-      </CardSection>
+      <Card className={style.cardPaddingTop}>
+        <CardTitle title={t('select_version_title')} />
+        <CardContent>
+          <Grid>
+            <Row>
+              <Col desk={3} tv={4} palm={12}>
+                <FormDropdown
+                  label={t('select_version_label')}
+                  name="api-version"
+                  onChange={openModalConfirmation}
+                  options={options}
+                  value={selected}
+                />
+              </Col>
+            </Row>
+          </Grid>
+        </CardContent>
+      </Card>
 
       <Modal isOpen={opened}>
         <ModalTitle

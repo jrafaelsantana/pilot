@@ -5,7 +5,7 @@ import {
   TabItem,
 } from 'former-kit'
 
-import GeneralInfoTab from './GeneralInfoTab'
+import ApiKeysTab from './ApiKeysTab'
 import BoletoInfoTab from './BoletoInfoTab'
 import FeesTab from './FeesTab'
 import AntifraudTab from './AntifraudInfoTab'
@@ -38,7 +38,7 @@ const CompanySettings = ({
 }) => {
   const [tabIndex, setTabIndex] = useState(0)
 
-  const tabItems = ['general', 'fees', 'boleto']
+  const tabItems = ['api_keys', 'fees', 'boleto']
 
   if (antifraud.fraud_covered) {
     tabItems.push('antifraud')
@@ -58,7 +58,7 @@ const CompanySettings = ({
     <div className={style.tabsContainer}>
       {tabIndex === 0
           && (
-            <GeneralInfoTab
+            <ApiKeysTab
               apiKeys={apiKeys}
               apiVersion={apiVersion}
               environment={environment}

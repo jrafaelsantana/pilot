@@ -1437,7 +1437,7 @@
         "tab": {
           "antifraud": "Antifraude",
           "fees": "Taxas e Serviços",
-          "general": "Geral",
+          "api_keys": "Chaves de API",
           "boleto": "Boleto",
           "team": "Equipe",
           "personalization": "Personalização",
@@ -1447,7 +1447,7 @@
           "general": {
             "title": {
               "rate": "Taxas e serviços",
-              "api": "Chaves da API e criptografia"
+              "api": "Chaves de API"
             },
             "subtitle": {
               "rate": "Taxas e serviços negociados durante a ativação da sua conta.",

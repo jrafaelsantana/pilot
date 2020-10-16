@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types'
 import React, { Fragment } from 'react'
 
-import { CardContent } from 'former-kit'
-
 import ApiKey from './ApiKey'
 import Versions from './Versions'
 
-const GeneralInfoTab = ({
+const ApiKeysTab = ({
   apiKeys,
   apiVersion,
   environment,
@@ -19,34 +17,30 @@ const GeneralInfoTab = ({
   <Fragment>
     {!hiddenApiKey
       && (
-        <CardContent>
-          <ApiKey
-            apiKeys={apiKeys}
-            environment={environment}
-            t={t}
-          />
-        </CardContent>
+      <ApiKey
+        apiKeys={apiKeys}
+        environment={environment}
+        t={t}
+      />
       )
     }
 
     {!userIsReadOnly && !hiddenApiKey
       && (
-        <CardContent>
-          <Versions
-            current={apiVersion}
-            environment={environment}
-            options={versions}
-            onVersionChange={onVersionChange}
-            t={t}
-            userIsReadOnly={userIsReadOnly}
-          />
-        </CardContent>
+      <Versions
+        current={apiVersion}
+        environment={environment}
+        options={versions}
+        onVersionChange={onVersionChange}
+        t={t}
+        userIsReadOnly={userIsReadOnly}
+      />
       )
     }
   </Fragment>
 )
 
-GeneralInfoTab.propTypes = {
+ApiKeysTab.propTypes = {
   apiKeys: PropTypes.shape({
     keys: PropTypes.shape({
       apiKey: PropTypes.string.isRequired,
@@ -69,9 +63,9 @@ GeneralInfoTab.propTypes = {
   })).isRequired,
 }
 
-GeneralInfoTab.defaultProps = {
+ApiKeysTab.defaultProps = {
   apiKeys: null,
   apiVersion: null,
 }
 
-export default GeneralInfoTab
+export default ApiKeysTab
