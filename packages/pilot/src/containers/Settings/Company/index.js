@@ -8,6 +8,7 @@ import {
 import GeneralInfoTab from './GeneralInfoTab'
 import BoletoInfoTab from './BoletoInfoTab'
 import FeesTab from './FeesTab'
+import AntifraudTab from './AntifraudInfoTab'
 
 import isPaymentLink from '../../../validation/isPaymentLink'
 import isNilOrEmpty from '../../../validation/isNilOrEmpty'
@@ -15,7 +16,7 @@ import isNilOrEmpty from '../../../validation/isNilOrEmpty'
 import style from './style.css'
 
 const CompanySettings = ({
-  // antifraud,
+  antifraud,
   apiKeys,
   apiVersion,
   boletoActionsDisabled,
@@ -37,6 +38,12 @@ const CompanySettings = ({
 }) => {
   const [tabIndex, setTabIndex] = useState(0)
 
+  const tabItems = ['general', 'fees', 'boleto']
+
+  if (antifraud.fraud_covered) {
+    tabItems.push('antifraud')
+  }
+
   return !isNilOrEmpty(company) && (
   <>
     <TabBar
@@ -45,9 +52,7 @@ const CompanySettings = ({
       selected={tabIndex}
       variant="just-text"
     >
-      <TabItem text={t('pages.settings.company.tab.general')} />
-      <TabItem text={t('pages.settings.company.tab.fees')} />
-      <TabItem text={t('pages.settings.company.tab.boleto')} />
+      { tabItems.map(i => <TabItem text={t(`pages.settings.company.tab.${i}`)} />) }
     </TabBar>
 
     <div className={style.tabsContainer}>
@@ -89,6 +94,11 @@ const CompanySettings = ({
               />
             )
           }
+      {tabIndex === 3
+          && (
+            <AntifraudTab t={t} />
+          )
+        }
     </div>
   </>
   )

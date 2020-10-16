@@ -1,53 +1,27 @@
-import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import BoletoForm from '../../Boleto/Form'
-import Antifraud from '../../Antifraud'
+import React from 'react'
 
-const ProductInfo = ({
-  antifraud,
-  boletoActionsDisabled,
-  boletoDaysToAddInExpirationDate,
-  boletoDisabled,
-  boletoHandleCancel,
-  boletoHandleChange,
-  boletoHandleSubmit,
-  boletoInstructions,
-  boletoInstructionsOptions,
-  t,
-}) => (
-  <Fragment>
-    <BoletoForm
-      actionsDisabled={boletoActionsDisabled}
-      daysToAddInExpirationDate={boletoDaysToAddInExpirationDate}
-      disabled={boletoDisabled}
-      instructions={boletoInstructions}
-      instructionsOptions={boletoInstructionsOptions}
-      onCancel={boletoHandleCancel}
-      onChange={boletoHandleChange}
-      onSubmit={boletoHandleSubmit}
-      t={t}
-    />
+import {
+  Card,
+  CardContent,
+  CardTitle,
+} from 'former-kit'
 
-    {antifraud.fraud_covered && <Antifraud t={t} />}
-  </Fragment>
+const Antifraud = ({ t }) => (
+  <Card>
+    <CardTitle title={t('pages.settings.company.antifraud.title')} />
+    <CardContent>
+      <p>
+        <strong>{t('pages.settings.company.antifraud.fraud_coverage.title')}</strong>
+      </p>
+
+      <p>{t('pages.settings.company.antifraud.fraud_coverage.description')}</p>
+    </CardContent>
+  </Card>
 )
 
-ProductInfo.propTypes = {
-  antifraud: PropTypes.shape({
-    fraud_covered: PropTypes.bool.isRequired,
-  }).isRequired,
-  boletoActionsDisabled: PropTypes.bool.isRequired,
-  boletoDaysToAddInExpirationDate: PropTypes.string.isRequired,
-  boletoDisabled: PropTypes.bool.isRequired,
-  boletoHandleCancel: PropTypes.func.isRequired,
-  boletoHandleChange: PropTypes.func.isRequired,
-  boletoHandleSubmit: PropTypes.func.isRequired,
-  boletoInstructions: PropTypes.string.isRequired,
-  boletoInstructionsOptions: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
-  })).isRequired,
+Antifraud.propTypes = {
   t: PropTypes.func.isRequired,
 }
 
-export default ProductInfo
+export default Antifraud
