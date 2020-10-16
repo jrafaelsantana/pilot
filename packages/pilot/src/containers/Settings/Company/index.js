@@ -7,6 +7,7 @@ import {
 
 import GeneralInfoTab from './GeneralInfoTab'
 import BoletoInfoTab from './BoletoInfoTab'
+import FeesTab from './FeesTab'
 
 import isPaymentLink from '../../../validation/isPaymentLink'
 import isNilOrEmpty from '../../../validation/isNilOrEmpty'
@@ -45,6 +46,7 @@ const CompanySettings = ({
       variant="just-text"
     >
       <TabItem text={t('pages.settings.company.tab.general')} />
+      <TabItem text={t('pages.settings.company.tab.fees')} />
       <TabItem text={t('pages.settings.company.tab.boleto')} />
     </TabBar>
 
@@ -55,9 +57,7 @@ const CompanySettings = ({
               apiKeys={apiKeys}
               apiVersion={apiVersion}
               environment={environment}
-              fees={fees}
               hiddenApiKey={isPaymentLink(company)}
-              isMDRzao={isMDRzao}
               onVersionChange={onVersionChange}
               t={t}
               userIsReadOnly={userIsReadOnly}
@@ -67,19 +67,28 @@ const CompanySettings = ({
         }
       {tabIndex === 1
           && (
-            <BoletoInfoTab
-              actionsDisabled={boletoActionsDisabled}
-              daysToAddInExpirationDate={boletoDaysToAddInExpirationDate}
-              disabled={boletoDisabled}
-              onCancel={onBoletoSettingsCancel}
-              onChange={onBoletoSettingsChange}
-              onSubmit={onBoletoSettingsSubmit}
-              instructions={boletoInstructions}
-              instructionsOptions={boletoInstructionsOptions}
+            <FeesTab
+              fees={fees}
+              isMDRzao={isMDRzao}
               t={t}
             />
           )
         }
+      {tabIndex === 2
+            && (
+              <BoletoInfoTab
+                actionsDisabled={boletoActionsDisabled}
+                daysToAddInExpirationDate={boletoDaysToAddInExpirationDate}
+                disabled={boletoDisabled}
+                onCancel={onBoletoSettingsCancel}
+                onChange={onBoletoSettingsChange}
+                onSubmit={onBoletoSettingsSubmit}
+                instructions={boletoInstructions}
+                instructionsOptions={boletoInstructionsOptions}
+                t={t}
+              />
+            )
+          }
     </div>
   </>
   )

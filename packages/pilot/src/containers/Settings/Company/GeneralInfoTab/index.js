@@ -4,30 +4,19 @@ import React, { Fragment } from 'react'
 import { CardContent } from 'former-kit'
 
 import ApiKey from './ApiKey'
-import Pricing from './Pricing'
 import Versions from './Versions'
 
 const GeneralInfoTab = ({
   apiKeys,
   apiVersion,
   environment,
-  fees,
   hiddenApiKey,
-  isMDRzao,
   onVersionChange,
   t,
   userIsReadOnly,
   versions,
 }) => (
   <Fragment>
-    <CardContent>
-      <Pricing
-        fees={fees}
-        isMDRzao={isMDRzao}
-        t={t}
-      />
-    </CardContent>
-
     {!hiddenApiKey
       && (
         <CardContent>
@@ -70,19 +59,7 @@ GeneralInfoTab.propTypes = {
     'live',
     'test',
   ]).isRequired,
-  fees: PropTypes.shape({
-    anticipation: PropTypes.number,
-    antifraud: PropTypes.number,
-    boleto: PropTypes.number,
-    gateway: PropTypes.number,
-    installments: PropTypes.arrayOf(PropTypes.shape({
-      installment: PropTypes.number.isRequired,
-      mdr: PropTypes.number.isRequired,
-    })),
-    transfer: PropTypes.number,
-  }).isRequired,
   hiddenApiKey: PropTypes.bool.isRequired,
-  isMDRzao: PropTypes.bool.isRequired,
   onVersionChange: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   userIsReadOnly: PropTypes.bool.isRequired,
