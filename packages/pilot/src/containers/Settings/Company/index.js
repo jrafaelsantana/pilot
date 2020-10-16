@@ -1,77 +1,68 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Card,
-  CardContent,
   TabBar,
   TabItem,
 } from 'former-kit'
 
-import GeneralInfoTab from './GeneralInfoTab'
-import ProductInfoTab from './ProductInfoTab'
+import ApiKeysTab from './ApiKeysTab'
+import BoletoInfoTab from './BoletoInfoTab'
+import FeesTab from './FeesTab'
+import AntifraudTab from './AntifraudInfoTab'
 
 import isPaymentLink from '../../../validation/isPaymentLink'
 import isNilOrEmpty from '../../../validation/isNilOrEmpty'
 
-class CompanySettings extends Component {
-  constructor (props) {
-    super(props)
-    this.state = { selectedIndex: 0 }
-    this.changeTab = this.changeTab.bind(this)
+import style from './style.css'
+
+const CompanySettings = ({
+  antifraud,
+  apiKeys,
+  apiVersion,
+  boletoActionsDisabled,
+  boletoDaysToAddInExpirationDate,
+  boletoDisabled,
+  boletoInstructions,
+  boletoInstructionsOptions,
+  company,
+  environment,
+  fees,
+  isMDRzao,
+  onBoletoSettingsCancel,
+  onBoletoSettingsChange,
+  onBoletoSettingsSubmit,
+  onVersionChange,
+  t,
+  userIsReadOnly,
+  versions,
+}) => {
+  const [tabIndex, setTabIndex] = useState(0)
+
+  const tabItems = ['api_keys', 'fees', 'boleto']
+
+  if (antifraud.fraud_covered) {
+    tabItems.push('antifraud')
   }
 
-  changeTab (selectedIndex) {
-    this.setState({ selectedIndex })
-  }
+  return !isNilOrEmpty(company) && (
+  <>
+    <TabBar
+      align="start"
+      onTabChange={setTabIndex}
+      selected={tabIndex}
+      variant="just-text"
+    >
+      { tabItems.map(i => <TabItem text={t(`pages.settings.company.tab.${i}`)} />) }
+    </TabBar>
 
-  render () {
-    const {
-      antifraud,
-      apiKeys,
-      apiVersion,
-      boletoActionsDisabled,
-      boletoDaysToAddInExpirationDate,
-      boletoDisabled,
-      boletoInstructions,
-      boletoInstructionsOptions,
-      company,
-      environment,
-      fees,
-      isMDRzao,
-      onBoletoSettingsCancel,
-      onBoletoSettingsChange,
-      onBoletoSettingsSubmit,
-      onVersionChange,
-      t,
-      userIsReadOnly,
-      versions,
-    } = this.props
-
-    const {
-      selectedIndex,
-    } = this.state
-
-    return !isNilOrEmpty(company) && (
-      <Card>
-        <CardContent>
-          <TabBar
-            onTabChange={this.changeTab}
-            selected={selectedIndex}
-            variant="just-text"
-          >
-            <TabItem text={t('pages.settings.company.tab.general')} />
-            <TabItem text={t('pages.settings.company.tab.products')} />
-          </TabBar>
-        </CardContent>
-        {selectedIndex === 0
+    <div className={style.tabsContainer}>
+      {tabIndex === 0
           && (
-            <GeneralInfoTab
+            <ApiKeysTab
               apiKeys={apiKeys}
               apiVersion={apiVersion}
               environment={environment}
-              fees={fees}
               hiddenApiKey={isPaymentLink(company)}
-              isMDRzao={isMDRzao}
               onVersionChange={onVersionChange}
               t={t}
               userIsReadOnly={userIsReadOnly}
@@ -79,25 +70,38 @@ class CompanySettings extends Component {
             />
           )
         }
-        {selectedIndex === 1
+      {tabIndex === 1
           && (
-            <ProductInfoTab
-              antifraud={antifraud}
-              boletoActionsDisabled={boletoActionsDisabled}
-              boletoDaysToAddInExpirationDate={boletoDaysToAddInExpirationDate}
-              boletoDisabled={boletoDisabled}
-              boletoHandleCancel={onBoletoSettingsCancel}
-              boletoHandleChange={onBoletoSettingsChange}
-              boletoHandleSubmit={onBoletoSettingsSubmit}
-              boletoInstructions={boletoInstructions}
-              boletoInstructionsOptions={boletoInstructionsOptions}
+            <FeesTab
+              fees={fees}
+              isMDRzao={isMDRzao}
               t={t}
             />
           )
         }
-      </Card>
-    )
-  }
+      {tabIndex === 2
+            && (
+              <BoletoInfoTab
+                actionsDisabled={boletoActionsDisabled}
+                daysToAddInExpirationDate={boletoDaysToAddInExpirationDate}
+                disabled={boletoDisabled}
+                onCancel={onBoletoSettingsCancel}
+                onChange={onBoletoSettingsChange}
+                onSubmit={onBoletoSettingsSubmit}
+                instructions={boletoInstructions}
+                instructionsOptions={boletoInstructionsOptions}
+                t={t}
+              />
+            )
+          }
+      {tabIndex === 3
+          && (
+            <AntifraudTab t={t} />
+          )
+        }
+    </div>
+  </>
+  )
 }
 
 CompanySettings.propTypes = {

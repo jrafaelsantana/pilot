@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { action } from '@storybook/addon-actions'
-import BoletoConfigurationForm from '../../../../src/containers/Settings/Boleto/Form'
+import BoletoInfoTab from '../../../../src/containers/Settings/Company/BoletoInfoTab'
 
 class BoletoForm extends Component {
   constructor (props) {
@@ -50,7 +50,7 @@ class BoletoForm extends Component {
     } = this.state
 
     return (
-      <BoletoConfigurationForm
+      <BoletoInfoTab
         actionsDisabled={actionsDisabled}
         daysToAddInExpirationDate={daysToAddInExpirationDate}
         instructions={instructions}

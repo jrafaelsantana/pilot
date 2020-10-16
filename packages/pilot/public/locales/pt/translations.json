@@ -1435,8 +1435,10 @@
         "cancel": "Cancelar",
         "menu": "Configurações",
         "tab": {
-          "general": "Geral",
-          "products": "Produtos",
+          "antifraud": "Antifraude",
+          "fees": "Taxas e Serviços",
+          "api_keys": "Chaves de API",
+          "boleto": "Boleto",
           "team": "Equipe",
           "personalization": "Personalização",
           "register": "Cadastro"
@@ -1445,7 +1447,7 @@
           "general": {
             "title": {
               "rate": "Taxas e serviços",
-              "api": "Chaves da API e criptografia"
+              "api": "Chaves de API"
             },
             "subtitle": {
               "rate": "Taxas e serviços negociados durante a ativação da sua conta.",
@@ -1493,7 +1495,7 @@
               "subscriptions": "Configurações globais de suas assinaturas recorrentes."
             },
             "boleto": {
-              "title": "Boletos"
+              "title": "Boleto"
             }
           },
           "register": {
